@@ -1,0 +1,38 @@
+/*
+  ARP Prevención — Sistema de diseño
+  Fuente única de tokens visuales. Cualquier cambio de color/tipografía
+  se hace aquí y se propaga a todas las páginas que importen este archivo.
+*/
+:root{
+  /* Color */
+  --ink:#1B1B18;
+  --parchment:#F6F1E7;
+  --card:#FFFFFF;
+  --border:#E4DCC8;
+  --gold:#C8973A;
+  --gold-deep:#A87A28;
+  --pine:#33452F;
+  --rope:#8B6A46;
+  --rust:#B54834;
+  --muted:#8A8072;
+  --green:#3F7A4D;
+
+  /* Tipografía */
+  --font-display:'Space Grotesk', sans-serif;
+  --font-body:'Source Serif 4', serif;
+  --font-mono:'IBM Plex Mono', monospace;
+
+  /* Espaciado */
+  --space-xs:8px;
+  --space-sm:14px;
+  --space-md:24px;
+  --space-lg:40px;
+  --space-xl:70px;
+  --space-2xl:96px;
+
+  /* Layout */
+  --max-width:1180px;
+  --radius-sm:8px;
+  --radius-md:14px;
+  --radius-full:999px;
+}
