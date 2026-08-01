@@ -37,9 +37,29 @@ se sube a Hostinger y este repo se archiva/borra.
 - `css/base.css` — header, footer, botones, tarjetas de servicio. Componentes compartidos.
 - Cada página añade solo sus estilos exclusivos en un `<style>` propio (ver `index.html` como ejemplo).
 
-## Header y footer dinámicos
+## Paths absolutos en GitHub Pages — SITE_PREFIX
 
-Cada página nueva debe incluir:
+Todo el código escribe rutas absolutas (`/css/...`, `/contacto/...`) pensando
+en el dominio real (`arpprevencion.com`, raíz). Pero GitHub Pages sirve este
+repo en `/arp-web-preview/`, y un path que empieza por `/` **siempre**
+resuelve contra la raíz del dominio — `<base href>` no lo cambia, es cómo
+funciona la resolución de URLs, no un bug puntual. La solución: un snippet al
+principio de cada página calcula `window.SITE_PREFIX` (vacío en producción,
+`/arp-web-preview` en GitHub Pages) y lo antepone a mano donde hace falta.
+
+**Cada página nueva debe empezar el `<head>` así**, antes de cualquier otro
+`<link>`:
+```html
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  window.SITE_PREFIX = location.hostname.endsWith('github.io') ? '/arp-web-preview' : '';
+  document.write('<link rel="stylesheet" href="' + SITE_PREFIX + '/css/tokens.css">');
+  document.write('<link rel="stylesheet" href="' + SITE_PREFIX + '/css/base.css">');
+</script>
+```
+
+Y terminar el `<body>` así:
 ```html
 <div id="site-header" data-active="CLAVE"></div>
 ...
@@ -47,13 +67,26 @@ Cada página nueva debe incluir:
 
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-<script src="/js/firebase-init.js"></script>
-<script src="/js/site-config.js"></script>
-<script src="/js/site-header.js"></script>
-<script src="/js/site-footer.js"></script>
+<script>
+  document.write('<script src="' + SITE_PREFIX + '/js/firebase-init.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-config.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-header.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-footer.js"><\/script>');
+</script>
+<script>
+  if (SITE_PREFIX) {
+    document.querySelectorAll('a[href^="/"]').forEach(function(a){
+      a.setAttribute('href', SITE_PREFIX + a.getAttribute('href'));
+    });
+  }
+</script>
 ```
 `CLAVE` es una de las definidas en `SITE_NAV` dentro de `js/site-header.js`
-(sirve para marcar el enlace activo del menú).
+(sirve para marcar el enlace activo del menú). No hace falta prefijar a mano
+ningún `<a href="/...">` del contenido de la página — el último script los
+reescribe automáticamente, incluidos los que pinta `site-header.js`/
+`site-footer.js`. Al migrar a Hostinger (dominio raíz real), `SITE_PREFIX`
+se calcula como cadena vacía solo y todo funciona igual sin tocar nada.
 
 ## Datos que se propagan solos (no escribir a mano en el HTML)
 

@@ -3,18 +3,24 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- SOLO GitHub Pages preview: el repo se sirve en /arp-web-preview/, no en la raíz.
-     Hace que los paths absolutos (/css/..., /js/..., /contacto/...) resuelvan bien aquí.
-     BORRAR esta línea al migrar a arpprevencion.com (raíz de dominio real). -->
-<base href="/arp-web-preview/">
+<script>
+  // Un path que empieza por "/" SIEMPRE resuelve contra la raíz del dominio,
+  // <base href> no lo cambia (así funciona la resolución de URLs, no un bug).
+  // Por eso detectamos aquí el subpath de GitHub Pages y lo anteponemos a
+  // mano a los dos <link> de CSS (bloqueantes, hace falta document.write) y,
+  // más abajo, a los <script> locales y a cualquier <a href="/..."> de la
+  // página. Al migrar a arpprevencion.com (raíz real) SITE_PREFIX es "" solo,
+  // no hay que tocar ningún archivo.
+  window.SITE_PREFIX = location.hostname.endsWith('github.io') ? '/arp-web-preview' : '';
+  document.write('<link rel="stylesheet" href="' + SITE_PREFIX + '/css/tokens.css">');
+  document.write('<link rel="stylesheet" href="' + SITE_PREFIX + '/css/base.css">');
+</script>
 <title>ARP Prevención — Inspección y certificación de instalaciones de ocio activo</title>
 <meta name="description" content="Entidad de inspección acreditada ENAC para parques de aventura, rocódromos, hinchables y equipamiento deportivo.">
 <meta property="og:title" content="ARP Prevención">
 <meta property="og:description" content="Entidad de inspección acreditada ENAC para parques de aventura, rocódromos, hinchables y equipamiento deportivo.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="/css/tokens.css">
-<link rel="stylesheet" href="/css/base.css">
 <style>
   /* Estilos exclusivos de esta página (home) */
   .hero{position:relative;padding:88px 0 100px;overflow:hidden}
@@ -72,8 +78,8 @@
       <div class="seal">
         <div class="seal-inner">
           <div class="seal-top">Entidad acreditada</div>
-          <div class="seal-num mono" data-config="sello_texto"></div>
-          <div class="seal-sub" data-config="razon_social"></div>
+          <div class="seal-num mono" data-config="acreditacion"></div>
+          <div class="seal-sub" data-config="nombre"></div>
         </div>
       </div>
     </div>
@@ -129,9 +135,21 @@
 
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
-<script src="/js/firebase-init.js"></script>
-<script src="/js/site-config.js"></script>
-<script src="/js/site-header.js"></script>
-<script src="/js/site-footer.js"></script>
+<script>
+  document.write('<script src="' + SITE_PREFIX + '/js/firebase-init.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-config.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-header.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-footer.js"><\/script>');
+</script>
+<script>
+  // Cualquier <a href="/..."> de la página (nav, footer, CTAs) apunta a la
+  // ruta real del subpath cuando estamos en GitHub Pages. En producción
+  // (SITE_PREFIX === "") esto no hace nada.
+  if (SITE_PREFIX) {
+    document.querySelectorAll('a[href^="/"]').forEach(function(a){
+      a.setAttribute('href', SITE_PREFIX + a.getAttribute('href'));
+    });
+  }
+</script>
 </body>
 </html>
