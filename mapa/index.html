@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  window.SITE_PREFIX = location.hostname.endsWith('github.io') ? '/arp-web-preview' : '';
+  document.write('<link rel="stylesheet" href="' + SITE_PREFIX + '/css/tokens.css">');
+  document.write('<link rel="stylesheet" href="' + SITE_PREFIX + '/css/base.css">');
+</script>
+<title>Instalaciones certificadas — ARP Prevención</title>
+<meta name="description" content="Mapa de instalaciones de ocio activo con certificado de inspección vigente emitido por ARP Prevención.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<style>
+  .page-hero{padding:48px 0 36px;border-bottom:1px solid var(--border)}
+  .page-hero h1{font-size:38px;line-height:1.1;margin-bottom:10px}
+  .page-hero p.lead{font-size:15px;color:#4a463f;max-width:560px}
+
+  .map-section{padding:32px 0 80px}
+  .map-controls{display:flex;align-items:center;gap:10px;margin-bottom:16px;flex-wrap:wrap}
+  .filter-btn{padding:6px 16px;border:1.5px solid var(--border);border-radius:20px;background:var(--card);font-family:var(--font-display);font-size:13px;font-weight:500;color:var(--muted);cursor:pointer;transition:.15s;white-space:nowrap}
+  .filter-btn.active{background:var(--ink);border-color:var(--ink);color:#fff}
+  .filter-btn:hover:not(.active){border-color:var(--ink);color:var(--ink)}
+  .badge-count{font-family:var(--font-mono);font-size:12px;font-weight:600;padding:5px 12px;border-radius:20px;background:#eef5ec;color:#3a7d52;margin-left:auto}
+  .badge-count.cero{background:#fef3e2;color:#c07a10}
+
+  .map-frame{border-radius:var(--radius-md);overflow:hidden;border:1px solid var(--border);height:540px;position:relative}
+  #map{width:100%;height:100%}
+
+  .spinner-wrap{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:500}
+  .spinner{width:32px;height:32px;border:3px solid var(--border);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  .overlay-msg{position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);z-index:400;background:var(--card);border-radius:var(--radius-md);padding:24px 28px;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,.1);pointer-events:none;display:none}
+  .overlay-msg.visible{display:block}
+  .overlay-icon{font-size:32px;margin-bottom:8px}
+  .overlay-title{font-size:14px;font-weight:700;color:var(--ink)}
+  .overlay-sub{font-size:13px;color:var(--muted);margin-top:4px;max-width:200px}
+
+  .btn-locate{position:absolute;bottom:20px;right:12px;z-index:1000;background:var(--card);border:1px solid var(--border);border-radius:9px;padding:9px 14px;font-family:var(--font-display);font-size:13px;font-weight:600;color:var(--ink);cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+  .btn-locate:hover{border-color:var(--gold-deep);color:var(--gold-deep)}
+
+  .map-note{margin-top:12px;font-family:var(--font-mono);font-size:11px;color:var(--muted);text-align:right}
+
+  /* Popup Leaflet */
+  .leaflet-popup-content-wrapper{border-radius:10px;box-shadow:0 4px 16px rgba(0,0,0,.12)}
+  .leaflet-popup-content{margin:12px 16px;min-width:160px}
+  .popup-nombre{font-weight:700;font-size:14px;color:var(--ink);line-height:1.3}
+  .popup-lugar{font-size:12px;color:var(--muted);margin-top:4px}
+  .popup-validez{font-size:12px;color:#3a7d52;font-weight:700;margin-top:8px}
+  .popup-tipo{display:inline-block;font-size:10px;color:var(--rope);font-weight:600;background:#f5efe6;border:1px solid #e8d9bf;border-radius:4px;padding:1px 7px;margin-top:5px;font-family:var(--font-mono);letter-spacing:.03em}
+
+  @media(max-width:960px){
+    .map-frame{height:420px}
+    .page-hero h1{font-size:28px}
+  }
+</style>
+</head>
+<body>
+
+<div id="site-header" data-active=""></div>
+
+<section class="page-hero">
+  <div class="wrap">
+    <div class="section-eyebrow">Certificaciones vigentes</div>
+    <h1>Instalaciones inspeccionadas por ARP</h1>
+    <p class="lead">Mapa público de instalaciones de ocio activo con certificado de inspección en vigor, emitido por ARP Prevención S.L. bajo acreditación ENAC.</p>
+  </div>
+</section>
+
+<div class="map-section">
+  <div class="wrap">
+    <div class="map-controls">
+      <button class="filter-btn active" data-tipo="TODOS">Todas</button>
+      <span class="badge-count" id="badgeCount">…</span>
+    </div>
+    <div class="map-frame">
+      <div id="map"></div>
+      <div class="spinner-wrap" id="spinner"><div class="spinner"></div></div>
+      <div class="overlay-msg" id="overlayMsg">
+        <div class="overlay-icon">📍</div>
+        <div class="overlay-title" id="overlayTitle">Sin instalaciones</div>
+        <div class="overlay-sub" id="overlaySub">No hay instalaciones con certificado vigente para este filtro.</div>
+      </div>
+      <button class="btn-locate" id="btnLocate">📍 Mi ubicación</button>
+    </div>
+    <p class="map-note">Solo se muestran instalaciones con certificado vigente · Datos en tiempo real</p>
+  </div>
+</div>
+
+<div id="site-footer"></div>
+
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<script>
+  document.write('<script src="' + SITE_PREFIX + '/js/firebase-init.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-config.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-header.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-footer.js"><\/script>');
+</script>
+<script>
+if (SITE_PREFIX) {
+  document.querySelectorAll('a[href^="/"]').forEach(function(a){
+    a.setAttribute('href', SITE_PREFIX + a.getAttribute('href'));
+  });
+}
+
+// ── Mapa ──
+var map = L.map('map', { zoomControl: true }).setView([40.4, -3.7], 6);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+  attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+  maxZoom: 19
+}).addTo(map);
+
+function mkIcono() {
+  return L.divIcon({
+    className: '',
+    html: '<div style="width:14px;height:14px;background:#3a7d52;border:2.5px solid white;border-radius:50%;box-shadow:0 1px 6px rgba(0,0,0,.3)"></div>',
+    iconSize: [14,14], iconAnchor: [7,7], popupAnchor: [0,-10]
+  });
+}
+
+function escHtml(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function fmtFecha(str) {
+  if (!str) return '—';
+  var m = str.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  return m ? m[3]+'/'+m[2]+'/'+m[1] : str;
+}
+
+var todosMarkers = [];
+var tipoActivo = 'TODOS';
+
+function actualizarContador() {
+  var n = todosMarkers.filter(function(m){ return tipoActivo==='TODOS' || m.tipo===tipoActivo; }).length;
+  var badge = document.getElementById('badgeCount');
+  badge.textContent = n + (n===1 ? ' certificada' : ' certificadas');
+  badge.className = 'badge-count' + (n===0 ? ' cero' : '');
+  document.getElementById('overlayMsg').classList.toggle('visible', n===0 && todosMarkers.length>0);
+}
+
+function filtrar(tipo) {
+  tipoActivo = tipo;
+  document.querySelectorAll('.filter-btn').forEach(function(b){ b.classList.toggle('active', b.dataset.tipo===tipo); });
+  todosMarkers.forEach(function(m){
+    if (tipo==='TODOS' || m.tipo===tipo) m.marker.addTo(map);
+    else map.removeLayer(m.marker);
+  });
+  actualizarContador();
+}
+
+document.getElementById('map').addEventListener('click', function(e){
+  var btn = e.target.closest('.filter-btn');
+  if(btn) filtrar(btn.dataset.tipo);
+});
+document.querySelector('.map-controls').addEventListener('click', function(e){
+  var btn = e.target.closest('.filter-btn');
+  if(btn) filtrar(btn.dataset.tipo);
+});
+
+function renderMarcadores(data) {
+  document.getElementById('spinner').style.display = 'none';
+  var hoy = new Date().toISOString().slice(0,10);
+  var tiposVistos = {};
+
+  data.forEach(function(d) {
+    if (!d.lat || !d.lng) return;
+    if (!d.fechaValidez || d.fechaValidez < hoy) return;
+    if (d.tipo) tiposVistos[d.tipo] = true;
+
+    var popup =
+      '<div class="popup-nombre">'+escHtml(d.nombre)+'</div>'+
+      (d.lugar ? '<div class="popup-lugar">'+escHtml(d.lugar)+'</div>' : '')+
+      '<div class="popup-validez">✓ Válido hasta '+fmtFecha(d.fechaValidez)+'</div>'+
+      (d.tipo ? '<div><span class="popup-tipo">'+escHtml(d.tipo)+'</span></div>' : '');
+
+    var marker = L.marker([d.lat, d.lng], {icon: mkIcono()}).bindPopup(popup);
+    todosMarkers.push({marker: marker, tipo: d.tipo||''});
+    marker.addTo(map);
+  });
+
+  var filtrosEl = document.querySelector('.map-controls');
+  Object.keys(tiposVistos).sort().forEach(function(tipo) {
+    var btn = document.createElement('button');
+    btn.className = 'filter-btn';
+    btn.dataset.tipo = tipo;
+    btn.textContent = tipo;
+    filtrosEl.insertBefore(btn, document.getElementById('badgeCount'));
+  });
+
+  if (todosMarkers.length === 0) {
+    document.getElementById('overlayTitle').textContent = 'Mapa pendiente de actualizar';
+    document.getElementById('overlaySub').textContent = 'Los datos de certificaciones aún no han sido publicados.';
+    document.getElementById('overlayMsg').classList.add('visible');
+    document.getElementById('badgeCount').textContent = '0 certificadas';
+    document.getElementById('badgeCount').className = 'badge-count cero';
+  } else {
+    actualizarContador();
+  }
+}
+
+document.getElementById('btnLocate').addEventListener('click', function(){
+  if (!navigator.geolocation) return;
+  var btn = this;
+  btn.textContent = '…';
+  navigator.geolocation.getCurrentPosition(function(pos){
+    btn.textContent = '📍 Mi ubicación';
+    map.setView([pos.coords.latitude, pos.coords.longitude], 13);
+    L.circleMarker([pos.coords.latitude, pos.coords.longitude], {
+      radius:9, fillColor:'#3388ff', color:'white', weight:2.5, fillOpacity:.9
+    }).addTo(map).bindPopup('<strong>Estás aquí</strong>').openPopup();
+  }, function(){ btn.textContent = '📍 Mi ubicación'; }, {timeout:8000});
+});
+
+// ── Init — leer de Firestore certificados-publicos (colección pública) ──
+window.addEventListener('load', function(){
+  var hoy = new Date().toISOString().slice(0,10);
+  db.collection('certificados-publicos').get().then(function(snap) {
+    var data = [];
+    snap.forEach(function(doc) {
+      var d = doc.data();
+      if (d.fechaValidez && d.fechaValidez >= hoy) data.push(d);
+    });
+    renderMarcadores(data);
+  }).catch(function(err) {
+    document.getElementById('spinner').style.display = 'none';
+    document.getElementById('overlayTitle').textContent = 'Error al cargar';
+    document.getElementById('overlaySub').textContent = 'No se pudieron cargar los datos. Inténtalo de nuevo.';
+    document.getElementById('overlayMsg').classList.add('visible');
+    document.getElementById('badgeCount').textContent = '0 certificadas';
+    document.getElementById('badgeCount').className = 'badge-count cero';
+    console.error('certificados-publicos:', err);
+  });
+});
+</script>
+</body>
+</html>
