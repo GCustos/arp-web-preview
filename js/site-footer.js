@@ -17,8 +17,8 @@ function renderSiteFooterSkeleton(){
               <div class="brand-mark">ARP</div>
               <div class="brand-name" style="color:#fff">ARP Prevención</div>
             </div>
-            <p data-config="razon_social"></p>
-            <p style="margin-top:4px">Entidad de inspección acreditada ENAC nº 489/EI 558, ISO/IEC 17020.</p>
+            <p data-config="nombre"></p>
+            <p style="margin-top:4px" data-flag="sello">Entidad de inspección acreditada ENAC <span data-config="acreditacion"></span>, ISO/IEC 17020.</p>
             <div class="social-row">
               <a class="social-btn" data-social="instagram" href="#" target="_blank" rel="noopener">IG</a>
               <a class="social-btn" data-social="facebook" href="#" target="_blank" rel="noopener">FB</a>
@@ -46,14 +46,13 @@ function renderSiteFooterSkeleton(){
             <h4>Contacto</h4>
             <ul>
               <li class="mono" data-config="telefono"></li>
-              <li data-config="direccion"></li>
-              <li data-config="cp_ciudad"></li>
+              <li data-config="sedeFiscal"></li>
             </ul>
           </div>
         </div>
         <div class="footer-bottom">
-          <span>© 2026 <span data-config="razon_social"></span> — <span data-config="cif"></span></span>
-          <span>ARP Prevención · Entidad de inspección acreditada</span>
+          <span>© 2026 <span data-config="nombre"></span></span>
+          <span>ARP Prevención · Ocio y turismo activo</span>
         </div>
       </div>
     </footer>
