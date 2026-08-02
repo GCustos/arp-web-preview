@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  window.SITE_PREFIX = location.hostname.endsWith('github.io') ? '/arp-web-preview' : '';
+  document.write('<link rel="stylesheet" href="' + SITE_PREFIX + '/css/tokens.css">');
+  document.write('<link rel="stylesheet" href="' + SITE_PREFIX + '/css/base.css">');
+</script>
+<title>Inspección y Certificación de Instalaciones — ARP Prevención</title>
+<meta name="description" content="Inspección y certificación acreditada ENAC de parques de aventura, rocódromos, hinchables, parques infantiles e instalaciones deportivas.">
+<meta property="og:title" content="Inspección y Certificación — ARP Prevención">
+<meta property="og:description" content="Más de 17 años inspeccionando instalaciones de ocio activo bajo acreditación ENAC · ISO 17020.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  .page-hero{padding:64px 0 56px;border-bottom:1px solid var(--border)}
+  .page-hero .eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--rope);display:flex;align-items:center;gap:10px;margin-bottom:16px}
+  .page-hero .eyebrow::before{content:'';width:22px;height:1px;background:var(--rope)}
+  .page-hero h1{font-size:44px;line-height:1.1;max-width:680px;margin-bottom:18px}
+  .page-hero p.lead{font-size:17px;color:#4a463f;max-width:600px;line-height:1.6}
+
+  .services-block{padding:56px 0}
+  .block-label{font-family:var(--font-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:22px;display:flex;align-items:center;gap:10px}
+  .block-label::after{content:'';flex:1;height:1px;background:var(--border)}
+  .enac-badge{display:inline-flex;align-items:center;gap:6px;background:#eef1ea;border:1px solid #c8d4bf;border-radius:20px;padding:3px 12px 3px 8px;font-family:var(--font-mono);font-size:10.5px;color:var(--pine);letter-spacing:.04em}
+  .enac-badge::before{content:'✓';font-weight:700}
+  .no-ac-badge{display:inline-flex;align-items:center;gap:6px;background:#f5f2e8;border:1px solid var(--border);border-radius:20px;padding:3px 12px 3px 8px;font-family:var(--font-mono);font-size:10.5px;color:var(--muted);letter-spacing:.04em}
+  .services-grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-bottom:48px}
+  .services-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .svc-card-link{display:block;text-decoration:none}
+  .svc-card-link .svc-card{height:100%}
+  .svc-card-link:hover .svc-card{border-color:var(--gold-deep);transform:translateY(-3px);box-shadow:0 14px 30px rgba(27,27,24,.07)}
+  .svc-card .arrow{display:inline-block;margin-top:16px;font-size:13px;color:var(--gold-deep);font-weight:600;font-family:var(--font-display)}
+
+  .iso-strip{background:var(--ink);color:var(--parchment);padding:40px 0;margin:56px 0 0}
+  .iso-inner{display:flex;gap:60px;align-items:center;flex-wrap:wrap}
+  .iso-text{flex:1;min-width:280px}
+  .iso-text h3{font-size:22px;color:#fff;margin-bottom:10px}
+  .iso-text p{color:#b0a98f;font-size:14px;line-height:1.65}
+  .iso-stat{text-align:right;flex-shrink:0}
+  .iso-stat .big{font-family:var(--font-display);font-size:52px;font-weight:700;color:var(--gold);line-height:1}
+  .iso-stat .label{font-family:var(--font-mono);font-size:11px;color:#75705f;letter-spacing:.06em;text-transform:uppercase;margin-top:6px}
+
+  @media(max-width:960px){
+    .services-grid-2{grid-template-columns:1fr}
+    .services-grid-3{grid-template-columns:1fr 1fr}
+    .page-hero h1{font-size:32px}
+    .iso-stat{text-align:left}
+  }
+  @media(max-width:640px){
+    .services-grid-3{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<div id="site-header" data-active="servicios"></div>
+
+<section class="page-hero">
+  <div class="wrap">
+    <div class="eyebrow">Servicios de inspección</div>
+    <h1>Inspección y certificación de instalaciones de ocio activo</h1>
+    <p class="lead">Más de 17 años inspeccionando instalaciones en todo el territorio nacional. Todos nuestros certificados están respaldados por nuestra acreditación ENAC según la Norma ISO 17020, el máximo reconocimiento legal y jurídico en inspección.</p>
+  </div>
+</section>
+
+<div class="services-block">
+  <div class="wrap">
+
+    <div class="block-label">Servicios acreditados ENAC</div>
+    <div class="services-grid-2">
+      <a href="/inspeccion-y-certificacion/acreditadas/parques-de-aventura/" class="svc-card-link">
+        <div class="svc-card">
+          <div class="svc-icon">🌲</div>
+          <h3>Parques de aventura</h3>
+          <p>Circuitos acrobáticos en altura, en árboles o estructuras artificiales. Certificación conforme a UNE-EN 15567 partes 1 y 2.</p>
+          <span class="svc-tag enac-badge">Acreditado ENAC</span>
+          <div class="arrow">Ver servicio →</div>
+        </div>
+      </a>
+      <a href="/inspeccion-y-certificacion/acreditadas/estructuras-artificiales-de-escalada/" class="svc-card-link">
+        <div class="svc-card">
+          <div class="svc-icon">🧗</div>
+          <h3>Rocódromos y estructuras de escalada</h3>
+          <p>Estructuras artificiales de escalada de todo tipo, desde grandes tramos a muros urbanos. Norma UNE-EN 12572.</p>
+          <span class="svc-tag enac-badge">Acreditado ENAC</span>
+          <div class="arrow">Ver servicio →</div>
+        </div>
+      </a>
+      <a href="/inspeccion-y-certificacion/acreditadas/estructuras-de-juego-hinchables/" class="svc-card-link">
+        <div class="svc-card">
+          <div class="svc-icon">🎈</div>
+          <h3>Estructuras de juego hinchables</h3>
+          <p>Instalaciones hinchables itinerantes o fijas. Certificación de cumplimiento UNE EN 14960-1, póliza RC incluida.</p>
+          <span class="svc-tag enac-badge">Acreditado ENAC</span>
+          <div class="arrow">Ver servicio →</div>
+        </div>
+      </a>
+      <a href="/inspeccion-y-certificacion/acreditadas/parques-infantiles/" class="svc-card-link">
+        <div class="svc-card">
+          <div class="svc-icon">🛝</div>
+          <h3>Parques infantiles y áreas de juego</h3>
+          <p>Áreas de juego para niños en espacios públicos, urbanizaciones y negocios. Norma UNE-EN 1176-1 a 11.</p>
+          <span class="svc-tag enac-badge">Acreditado ENAC</span>
+          <div class="arrow">Ver servicio →</div>
+        </div>
+      </a>
+    </div>
+
+    <a href="/inspeccion-y-certificacion/acreditadas/instalaciones-deportivas/" class="svc-card-link" style="display:block;margin-bottom:48px">
+      <div class="svc-card" style="display:flex;align-items:center;gap:28px">
+        <div class="svc-icon" style="flex-shrink:0">⚽</div>
+        <div>
+          <h3>Instalaciones deportivas</h3>
+          <p style="margin-bottom:10px">Equipamiento de fútbol, baloncesto, voleibol, tenis, balonmano y bádminton. Garantía de cumplimiento normativo para municipios, colegios y polideportivos.</p>
+          <span class="svc-tag enac-badge">Acreditado ENAC</span>
+        </div>
+        <div class="arrow" style="flex-shrink:0;margin-top:0">Ver servicio →</div>
+      </div>
+    </a>
+
+    <div class="block-label">Servicios no acreditados</div>
+    <p style="font-size:14px;color:var(--muted);margin-bottom:28px;max-width:700px">Estas inspecciones se realizan con el mismo rigor e independencia que las actividades acreditadas. La ausencia de acreditación responde a que la normativa específica aún no existe o está en proceso de desarrollo.</p>
+    <div class="services-grid-3">
+      <a href="/inspeccion-y-certificacion/no-acreditadas/vias-ferratas/" class="svc-card-link">
+        <div class="svc-card">
+          <div class="svc-icon">⛰️</div>
+          <h3>Vías ferratas</h3>
+          <p>Certificación conforme a UNE-EN 16869:2018. Instalaciones nuevas y actualización de vías anteriores a norma.</p>
+          <div class="arrow">Ver servicio →</div>
+        </div>
+      </a>
+      <a href="/inspeccion-y-certificacion/no-acreditadas/camas-elasticas/" class="svc-card-link">
+        <div class="svc-card">
+          <div class="svc-icon">🤸</div>
+          <h3>Camas elásticas</h3>
+          <p>Trampolines deportivos, domésticos y trampoline parks. Lideramos el grupo de trabajo europeo para la norma de trampoline parks.</p>
+          <div class="arrow">Ver servicio →</div>
+        </div>
+      </a>
+      <a href="/inspeccion-y-certificacion/no-acreditadas/juegos-especiales/" class="svc-card-link">
+        <div class="svc-card">
+          <div class="svc-icon">🎯</div>
+          <h3>Juegos especiales</h3>
+          <p>Instalaciones fuera de normativa estándar. Estudiamos cada caso y ofrecemos el certificado más adecuado a su actividad.</p>
+          <div class="arrow">Ver servicio →</div>
+        </div>
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<div class="iso-strip">
+  <div class="wrap iso-inner">
+    <div class="iso-text">
+      <h3>Entidad de inspección tipo C · ISO 17020</h3>
+      <p>La categoría C es la modalidad de mayor versatilidad y reconocimiento jurídico en la norma ISO 17020. Nos permite combinar la independencia en las actividades de inspección con la posibilidad de colaborar en diseño, fabricación, instalación o mantenimiento, cubriendo así la totalidad del ciclo de vida de una instalación.</p>
+    </div>
+    <div class="iso-stat">
+      <div class="big">17+</div>
+      <div class="label">años en el sector</div>
+    </div>
+  </div>
+</div>
+
+<div id="site-footer"></div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<script>
+  document.write('<script src="' + SITE_PREFIX + '/js/firebase-init.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-config.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-header.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-footer.js"><\/script>');
+</script>
+<script>
+  if (SITE_PREFIX) {
+    document.querySelectorAll('a[href^="/"]').forEach(function(a){
+      a.setAttribute('href', SITE_PREFIX + a.getAttribute('href'));
+    });
+  }
+</script>
+</body>
+</html>

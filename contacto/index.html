@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  window.SITE_PREFIX = location.hostname.endsWith('github.io') ? '/arp-web-preview' : '';
+  document.write('<link rel="stylesheet" href="' + SITE_PREFIX + '/css/tokens.css">');
+  document.write('<link rel="stylesheet" href="' + SITE_PREFIX + '/css/base.css">');
+</script>
+<title>Contacto — ARP Prevención</title>
+<meta name="description" content="Contacta con ARP Prevención para solicitar una inspección o presupuesto. Calle Alegría 27-29, Hospitalet de Llobregat · 685 76 26 45.">
+<meta property="og:title" content="Contacto — ARP Prevención">
+<meta property="og:description" content="Solicita tu inspección o presupuesto. Te confirmamos disponibilidad en menos de 48 horas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  .page-hero{padding:64px 0 56px;border-bottom:1px solid var(--border)}
+  .page-hero .eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--rope);display:flex;align-items:center;gap:10px;margin-bottom:16px}
+  .page-hero .eyebrow::before{content:'';width:22px;height:1px;background:var(--rope)}
+  .page-hero h1{font-size:44px;line-height:1.1;max-width:580px;margin-bottom:12px}
+  .page-hero p.lead{font-size:16px;color:#4a463f;max-width:520px}
+
+  .contact-layout{padding:64px 0 80px}
+  .contact-grid{display:grid;grid-template-columns:1fr 380px;gap:64px;align-items:start}
+
+  /* Formulario */
+  .contact-form h2{font-size:22px;margin-bottom:28px}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .field{margin-bottom:18px}
+  .field label{display:block;font-family:var(--font-display);font-size:13px;font-weight:600;margin-bottom:6px;color:var(--ink)}
+  .field input,.field select,.field textarea{
+    width:100%;background:var(--card);border:1.5px solid var(--border);border-radius:9px;
+    padding:11px 14px;font-family:var(--font-display);font-size:14px;color:var(--ink);
+    outline:none;transition:.2s
+  }
+  .field input:focus,.field select:focus,.field textarea:focus{border-color:var(--gold-deep);box-shadow:0 0 0 3px rgba(202,153,51,.12)}
+  .field textarea{resize:vertical;min-height:130px}
+  .field select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23666' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px}
+  .privacy-note{font-size:12px;color:var(--muted);line-height:1.6;margin-bottom:20px}
+  .privacy-note a{text-decoration:underline;color:var(--rope)}
+  .btn-submit{background:var(--ink);color:var(--parchment);padding:14px 32px;border-radius:9px;font-weight:600;font-size:15px;border:none;cursor:pointer;width:100%;transition:.2s;font-family:var(--font-display)}
+  .btn-submit:hover{background:var(--gold-deep)}
+  .form-note{font-family:var(--font-mono);font-size:11px;color:var(--muted);text-align:center;margin-top:12px;letter-spacing:.03em}
+
+  /* Info lateral */
+  .contact-info{display:flex;flex-direction:column;gap:20px}
+  .info-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-md);padding:24px}
+  .info-card h4{font-size:13px;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:12px}
+  .info-card .value{font-size:16px;font-weight:600;color:var(--ink);margin-bottom:4px}
+  .info-card .sub{font-size:13px;color:var(--muted)}
+  .info-card a{color:var(--ink)}
+  .info-card a:hover{color:var(--gold-deep)}
+
+  .response-badge{display:flex;align-items:center;gap:10px;background:#eef1ea;border:1px solid #c8d4bf;border-radius:9px;padding:14px 18px}
+  .response-badge .dot{width:8px;height:8px;border-radius:50%;background:#4a7c59;flex-shrink:0}
+  .response-badge p{font-size:13px;color:#4a7c59;font-weight:500}
+
+  @media(max-width:960px){
+    .contact-grid{grid-template-columns:1fr;gap:40px}
+    .page-hero h1{font-size:32px}
+    .form-row{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<div id="site-header" data-active=""></div>
+
+<section class="page-hero">
+  <div class="wrap">
+    <div class="eyebrow">Contacto</div>
+    <h1>¿Hablamos de tu instalación?</h1>
+    <p class="lead">Cuéntanos qué tipo de instalación tienes y te informamos sin compromiso. Respondemos en menos de 48 horas.</p>
+  </div>
+</section>
+
+<div class="contact-layout">
+  <div class="wrap">
+    <div class="contact-grid">
+
+      <div class="contact-form">
+        <h2>Solicitar inspección o presupuesto</h2>
+        <!-- Formulario visual — backend en Fase 6 -->
+        <form id="contactForm" novalidate>
+          <div class="form-row">
+            <div class="field">
+              <label for="nombre">Nombre *</label>
+              <input type="text" id="nombre" name="nombre" placeholder="Tu nombre" autocomplete="name">
+            </div>
+            <div class="field">
+              <label for="empresa">Empresa</label>
+              <input type="text" id="empresa" name="empresa" placeholder="Nombre de la empresa">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="field">
+              <label for="email">Email *</label>
+              <input type="email" id="email" name="email" placeholder="tu@email.com" autocomplete="email">
+            </div>
+            <div class="field">
+              <label for="telefono">Teléfono</label>
+              <input type="tel" id="telefono" name="telefono" placeholder="600 000 000" autocomplete="tel">
+            </div>
+          </div>
+          <div class="field">
+            <label for="tipo">Tipo de instalación</label>
+            <select id="tipo" name="tipo">
+              <option value="">Selecciona una opción</option>
+              <optgroup label="Acreditadas ENAC">
+                <option>Parque de aventura</option>
+                <option>Rocódromo / estructura de escalada</option>
+                <option>Hinchables</option>
+                <option>Parque infantil / área de juego</option>
+                <option>Instalación deportiva</option>
+              </optgroup>
+              <optgroup label="Otras">
+                <option>Vía ferrata</option>
+                <option>Camas elásticas / trampoline park</option>
+                <option>Juego especial / otra instalación</option>
+                <option>Ingeniería / proyecto técnico</option>
+              </optgroup>
+            </select>
+          </div>
+          <div class="field">
+            <label for="mensaje">Mensaje *</label>
+            <textarea id="mensaje" name="mensaje" placeholder="Describe brevemente tu instalación, localización y lo que necesitas..."></textarea>
+          </div>
+          <p class="privacy-note">
+            Al enviar este formulario, sus datos serán tratados por Adell Riesgos y Prevención S.L. con la finalidad de gestionar su solicitud. Puede ejercer sus derechos de acceso, rectificación y cancelación en la dirección indicada en nuestro <a href="/empresa/aviso-legal/">aviso legal</a>.
+          </p>
+          <button type="submit" class="btn-submit">Enviar solicitud →</button>
+          <p class="form-note">⚠ Envío desactivado temporalmente — próximamente disponible</p>
+        </form>
+      </div>
+
+      <div class="contact-info">
+        <div class="response-badge">
+          <div class="dot"></div>
+          <p>Respondemos en menos de 48 horas</p>
+        </div>
+
+        <div class="info-card">
+          <h4>Teléfono</h4>
+          <div class="value"><a href="tel:685762645" data-config="telefono">685 76 26 45</a></div>
+          <div class="sub">Lunes a viernes, 9:00–18:00</div>
+        </div>
+
+        <div class="info-card">
+          <h4>Dirección</h4>
+          <div class="value" data-config="nombre_empresa">Adell Riesgos y Prevención SL</div>
+          <div class="sub" data-config="direccion">Calle Alegría Nº27-29, local 2</div>
+          <div class="sub">08905 Hospitalet de Llobregat, Barcelona</div>
+        </div>
+
+        <div class="info-card">
+          <h4>Síguenos</h4>
+          <div style="display:flex;gap:10px;margin-top:4px">
+            <a href="#" data-social="instagram" style="width:38px;height:38px;border:1px solid var(--border);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px">📸</a>
+            <a href="#" data-social="facebook" style="width:38px;height:38px;border:1px solid var(--border);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px">📘</a>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <h4>Tarifas</h4>
+          <div class="sub" style="margin-bottom:12px">Descarga nuestra tarifa actualizada en PDF.</div>
+          <a href="/tarifas/" class="btn-ghost" style="font-size:13px;padding:9px 16px">Ver tarifas →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div id="site-footer"></div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<script>
+  document.write('<script src="' + SITE_PREFIX + '/js/firebase-init.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-config.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-header.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-footer.js"><\/script>');
+</script>
+<script>
+  if (SITE_PREFIX) {
+    document.querySelectorAll('a[href^="/"]').forEach(function(a){
+      a.setAttribute('href', SITE_PREFIX + a.getAttribute('href'));
+    });
+  }
+  // Submit deshabilitado hasta Fase 6
+  document.getElementById('contactForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    alert('Formulario de contacto próximamente disponible.\n\nMientras tanto, contacta por teléfono: 685 76 26 45');
+  });
+</script>
+</body>
+</html>
