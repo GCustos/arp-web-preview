@@ -78,6 +78,7 @@ function applyConfig(empresa){
   });
 }
 
-// Se ejecuta en cuanto el DOM está listo; site-header.js y site-footer.js
-// esperan a esta promesa antes de pintar sus datos.
+// Expuesto globalmente para que site-header.js y site-footer.js puedan
+// re-aplicar la config a elementos renderizados después de la primera llamada.
+window.applyConfig = applyConfig;
 window.siteConfigReady = loadSiteConfig();

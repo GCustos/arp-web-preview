@@ -27,10 +27,10 @@ function renderSiteFooterSkeleton(){
           <div>
             <h4>Servicios</h4>
             <ul>
-              <li><a href="/acreditadas/parques-de-aventura/">Parques de aventura</a></li>
-              <li><a href="/acreditadas/estructuras-artificiales-de-escalada/">Rocódromos</a></li>
-              <li><a href="/acreditadas/instalaciones-deportivas/">Equipamiento deportivo</a></li>
-              <li><a href="/no-acreditadas/vias-ferratas/">Vías ferratas</a></li>
+              <li><a href="/inspeccion-y-certificacion/acreditadas/parques-de-aventura/">Parques de aventura</a></li>
+              <li><a href="/inspeccion-y-certificacion/acreditadas/estructuras-artificiales-de-escalada/">Rocódromos</a></li>
+              <li><a href="/inspeccion-y-certificacion/acreditadas/instalaciones-deportivas/">Equipamiento deportivo</a></li>
+              <li><a href="/inspeccion-y-certificacion/no-acreditadas/vias-ferratas/">Vías ferratas</a></li>
             </ul>
           </div>
           <div>
@@ -60,5 +60,7 @@ function renderSiteFooterSkeleton(){
 }
 
 renderSiteFooterSkeleton();
-// site-config.js rellena los data-config / data-social cuando Firestore responde:
-window.siteConfigReady.then(() => {});
+// Re-aplica config a los elementos del footer (creados después del primer applyConfig).
+// Si Firestore responde desde caché antes de que este script ejecute, applyConfig
+// ya se habrá llamado sin encontrar los [data-social]/[data-config] del footer.
+window.siteConfigReady.then(function(cfg){ if(window.applyConfig) window.applyConfig(cfg); });
