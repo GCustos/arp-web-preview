@@ -30,8 +30,6 @@
   .ing-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;background:var(--border);border:1px solid var(--border);margin-top:40px}
   .ing-card{background:var(--parchment);padding:36px 32px;display:flex;flex-direction:column;gap:0}
   .ing-card-img{width:100%;height:180px;object-fit:cover;border-radius:4px;margin-bottom:22px;display:block}
-  .ing-card-img-placeholder{width:100%;height:180px;background:var(--border);border-radius:4px;margin-bottom:22px;display:flex;align-items:center;justify-content:center}
-  .ing-card-img-placeholder span{font-family:var(--font-mono);font-size:11px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
   .ing-card .ico{font-size:28px;margin-bottom:14px;line-height:1}
   .ing-card h3{font-size:20px;margin-bottom:10px}
   .ing-card p{font-size:14.5px;color:var(--muted);line-height:1.65}
@@ -160,13 +158,13 @@
     });
   }
 
-  // Carga las fotos si existen; si no, muestra un placeholder discreto
+  // Carga las fotos si existen; si no, oculta el espacio limpiamente
   var photos = {
-    'ing-hero-img':  SITE_PREFIX + '/img/ingenieria/hero.jpg',
-    'img-proyectos': SITE_PREFIX + '/img/ingenieria/proyectos.jpg',
+    'ing-hero-img':   SITE_PREFIX + '/img/ingenieria/hero.jpg',
+    'img-proyectos':  SITE_PREFIX + '/img/ingenieria/proyectos.jpg',
     'img-estructuras':SITE_PREFIX + '/img/ingenieria/estructuras.jpg',
     'img-legalizacion':SITE_PREFIX + '/img/ingenieria/legalizacion.jpg',
-    'img-eventos':   SITE_PREFIX + '/img/ingenieria/eventos.jpg'
+    'img-eventos':    SITE_PREFIX + '/img/ingenieria/eventos.jpg'
   };
   Object.keys(photos).forEach(function(id){
     var el = document.getElementById(id);
@@ -175,16 +173,11 @@
     var test = new Image();
     test.onload = function(){ el.src = src; };
     test.onerror = function(){
-      // Si no hay foto, oculta el elemento y activa fallback
       if (id === 'ing-hero-img') {
         document.getElementById('ing-hero').classList.add('no-photo');
         el.style.display = 'none';
         document.querySelector('.ing-hero-overlay').style.display = 'none';
       } else {
-        var placeholder = document.createElement('div');
-        placeholder.className = 'ing-card-img-placeholder';
-        placeholder.innerHTML = '<span>Foto próximamente</span>';
-        el.parentNode.insertBefore(placeholder, el);
         el.style.display = 'none';
       }
     };
