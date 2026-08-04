@@ -134,7 +134,7 @@ async function enviarEmailContacto(apiKey, destinatario, datos, esNuevo, crm) {
     <p><strong>Mensaje:</strong><br>${(datos.mensaje || "").replace(/\n/g, "<br>")}</p>
   `;
 
-  await fetch("https://api.resend.com/emails", {
+  const resp = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -147,6 +147,13 @@ async function enviarEmailContacto(apiKey, destinatario, datos, esNuevo, crm) {
       html,
     }),
   });
+
+  const respBody = await resp.text();
+  if (!resp.ok) {
+    console.error("Resend error", resp.status, respBody);
+  } else {
+    console.log("Resend OK", respBody);
+  }
 }
 
 exports.submitContact = onCall({ secrets: [resendApiKey] }, async (request) => {
