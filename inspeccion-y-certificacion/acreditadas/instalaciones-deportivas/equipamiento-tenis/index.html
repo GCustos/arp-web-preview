@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  window.SITE_PREFIX = location.hostname.endsWith('github.io') ? '/arp-web-preview' : '';
+  document.write('<link rel="stylesheet" href="' + SITE_PREFIX + '/css/tokens.css">');
+  document.write('<link rel="stylesheet" href="' + SITE_PREFIX + '/css/base.css">');
+</script>
+<title>Inspección de Equipamiento de Tenis — ARP Prevención</title>
+<meta name="description" content="Inspección y certificación de postes, redes y cercados perimetrales de tenis conforme a UNE-EN 1510. Acreditado ENAC.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div id="site-header" data-active="servicios"></div>
+
+<div class="svc-page-hero">
+  <div class="wrap">
+    <nav class="svc-breadcrumb">
+      <a href="/inspeccion-y-certificacion/">Inspección y Certificación</a>
+      <span>›</span>
+      <a href="/inspeccion-y-certificacion/acreditadas/instalaciones-deportivas/">Instalaciones deportivas</a>
+      <span>›</span>
+      Equipamiento de tenis
+    </nav>
+    <div class="eyebrow">Servicio acreditado · 🎾 Tenis</div>
+    <h1>Inspección de equipamiento de tenis</h1>
+    <p class="lead">El equipamiento de una pista de tenis incluye los postes y la red de juego, pero también el cercado perimetral, cuya integridad es fundamental tanto para la seguridad de los jugadores como para la continuidad del juego.</p>
+  </div>
+</div>
+
+<div class="svc-layout">
+  <div class="wrap">
+    <div class="svc-grid">
+
+      <div class="svc-body">
+
+        <div class="svc-section">
+          <h2>Elementos inspeccionados</h2>
+          <p><strong>Postes de red</strong> — Verificación de su verticalidad, estado estructural y sistemas de anclaje al suelo o a la superficie de la pista. En postes con sistemas de regulación de tensión, se comprueba su correcto funcionamiento.</p>
+          <p><strong>Red de juego</strong> — Comprobación de las dimensiones reglamentarias, el estado del tejido, la cinta central y el cable de sujeción superior.</p>
+          <p><strong>Cercado perimetral</strong> — Inspección del estado de los postes de vallado, la malla metálica, el remate superior y los accesos. Las roturas o deformaciones pueden provocar cortes o lesiones a los jugadores.</p>
+        </div>
+
+        <div class="svc-section">
+          <h2>Nuestro servicio</h2>
+          <p>Inspeccionamos el conjunto de la instalación conforme a la norma UNE-EN 1510, con independencia total y los mismos estándares que aplicamos en cualquier otro tipo de instalación deportiva acreditada.</p>
+        </div>
+
+        <div class="svc-section">
+          <h2>Intervención sobre el terreno</h2>
+          <ul class="svc-ul">
+            <li>Revisión de postes: verticalidad, anclajes, estado del recubrimiento</li>
+            <li>Comprobación de los sistemas de tensado de red</li>
+            <li>Estado de la red, cinta y cable superior</li>
+            <li>Inspección del cercado perimetral: postes, malla y accesos</li>
+            <li>Comunicación de resultados y clasificación de deficiencias</li>
+          </ul>
+        </div>
+
+        <div class="svc-section">
+          <h2>Documentación emitida</h2>
+          <ul class="svc-ul">
+            <li>Informe técnico completo con fotografías</li>
+            <li>Identificación de deficiencias y recomendaciones de mejora</li>
+            <li>Certificado de cumplimiento normativo si el resultado de la inspección es favorable</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="svc-sidebar">
+        <div class="svc-sidebar-card">
+          <h4>Normativa aplicable</h4>
+          <p><strong>UNE-EN 1510</strong></p>
+          <p style="margin-top:6px;font-size:12.5px;color:var(--muted)">Equipamiento de tenis. Requisitos funcionales y de seguridad, métodos de ensayo.</p>
+        </div>
+        <div class="svc-enac-badge" data-flag="sello">Acreditado ENAC</div>
+        <div class="svc-sidebar-card">
+          <h4>¿Para quién?</h4>
+          <ul>
+            <li>Clubs de tenis</li>
+            <li>Municipios y urbanizaciones</li>
+            <li>Hoteles y complejos deportivos</li>
+            <li>Colegios y universidades</li>
+          </ul>
+        </div>
+        <div class="svc-cta-card">
+          <h4>¿Cuántas pistas necesitas certificar?</h4>
+          <p>Cuéntanos el número de pistas y te enviamos presupuesto sin compromiso.</p>
+          <a href="/contacto/">Solicitar presupuesto →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div id="site-footer"></div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<script>
+  document.write('<script src="' + SITE_PREFIX + '/js/firebase-init.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-config.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-header.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-footer.js"><\/script>');
+</script>
+<script>
+  if (SITE_PREFIX) {
+    document.querySelectorAll('a[href^="/"]').forEach(function(a){
+      a.setAttribute('href', SITE_PREFIX + a.getAttribute('href'));
+    });
+  }
+</script>
+</body>
+</html>

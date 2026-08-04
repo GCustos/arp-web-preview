@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  window.SITE_PREFIX = location.hostname.endsWith('github.io') ? '/arp-web-preview' : '';
+  document.write('<link rel="stylesheet" href="' + SITE_PREFIX + '/css/tokens.css">');
+  document.write('<link rel="stylesheet" href="' + SITE_PREFIX + '/css/base.css">');
+</script>
+<title>Inspección de Estructuras de Juego Hinchables — ARP Prevención</title>
+<meta name="description" content="Inspección y certificación de estructuras hinchables conforme a UNE-EN 14960-1. Póliza de responsabilidad civil incluida en el certificado.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div id="site-header" data-active="servicios"></div>
+
+<div class="svc-page-hero">
+  <div class="wrap">
+    <nav class="svc-breadcrumb">
+      <a href="/inspeccion-y-certificacion/">Inspección y Certificación</a>
+      <span>›</span>
+      <a href="/inspeccion-y-certificacion/">Acreditadas</a>
+      <span>›</span>
+      Estructuras de juego hinchables
+    </nav>
+    <div class="eyebrow">Servicio acreditado</div>
+    <h1>Estructuras de juego hinchables</h1>
+    <p class="lead">Las instalaciones hinchables son versátiles, están en constante movimiento y su uso es intensivo. Cada vez más municipios y organizadores de eventos exigen un certificado de cumplimiento normativo antes de autorizar su uso.</p>
+  </div>
+</div>
+
+<div class="svc-layout">
+  <div class="wrap">
+    <div class="svc-grid">
+
+      <div class="svc-body">
+
+        <div class="svc-section">
+          <h2>Nuestro servicio</h2>
+          <p>Las estructuras hinchables — tanto itinerantes como fijas — están sometidas a uso intensivo y a condiciones cambiantes que las hacen especialmente susceptibles al deterioro. Una inspección periódica garantiza que cada montaje cumple los requisitos de seguridad de la norma UNE-EN 14960-1 y que los usuarios están protegidos frente a posibles accidentes.</p>
+          <p>Nuestro certificado incluye una <strong>póliza de responsabilidad civil</strong>, lo que proporciona cobertura económica en caso de accidente y un respaldo técnico cualificado ante cualquier reclamación judicial.</p>
+        </div>
+
+        <div class="svc-section">
+          <h2>Intervención sobre el terreno</h2>
+          <ul class="svc-ul">
+            <li>Comprobación de los procedimientos de explotación y montaje</li>
+            <li>Diagnóstico visual completo de la estructura: costuras, anclajes, soplantes y sistemas de seguridad</li>
+            <li>Verificación del cumplimiento de las instrucciones del fabricante</li>
+            <li>Pruebas de resistencia cuando se detectan deficiencias estructurales</li>
+            <li>Revisión de la señalización y de las medidas de seguridad para usuarios</li>
+            <li>Comunicación detallada de los resultados al cliente</li>
+          </ul>
+        </div>
+
+        <div class="svc-section">
+          <h2>Documentación emitida</h2>
+          <ul class="svc-ul">
+            <li>Informe técnico completo con fotografías</li>
+            <li>Identificación de anomalías de resistencia o seguridad detectadas</li>
+            <li>Certificado de cumplimiento normativo con póliza de RC incluida, si el resultado es favorable</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="svc-sidebar">
+        <div class="svc-sidebar-card">
+          <h4>Normativa aplicable</h4>
+          <p><strong>UNE-EN 14960-1</strong></p>
+          <p style="margin-top:6px;font-size:12.5px;color:var(--muted)">Equipos de juego hinchables. Parte 1: Requisitos de seguridad y métodos de ensayo.</p>
+        </div>
+        <div class="svc-enac-badge" data-flag="sello">Acreditado ENAC</div>
+        <div class="svc-sidebar-card">
+          <h4>Incluido en el certificado</h4>
+          <ul>
+            <li>Póliza de Responsabilidad Civil</li>
+            <li>Respaldo técnico ante reclamaciones</li>
+          </ul>
+        </div>
+        <div class="svc-cta-card">
+          <h4>¿Alquilas o explota hinchables?</h4>
+          <p>Te informamos sobre la periodicidad recomendada y el proceso de certificación.</p>
+          <a href="/contacto/">Solicitar presupuesto →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div id="site-footer"></div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<script>
+  document.write('<script src="' + SITE_PREFIX + '/js/firebase-init.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-config.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-header.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-footer.js"><\/script>');
+</script>
+<script>
+  if (SITE_PREFIX) {
+    document.querySelectorAll('a[href^="/"]').forEach(function(a){
+      a.setAttribute('href', SITE_PREFIX + a.getAttribute('href'));
+    });
+  }
+</script>
+</body>
+</html>

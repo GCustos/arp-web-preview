@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  window.SITE_PREFIX = location.hostname.endsWith('github.io') ? '/arp-web-preview' : '';
+  document.write('<link rel="stylesheet" href="' + SITE_PREFIX + '/css/tokens.css">');
+  document.write('<link rel="stylesheet" href="' + SITE_PREFIX + '/css/base.css">');
+</script>
+<title>Inspección de Equipamiento de Bádminton — ARP Prevención</title>
+<meta name="description" content="Inspección y certificación de postes y sistemas de sujeción de red de bádminton conforme a UNE-EN 1509. Acreditado ENAC.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div id="site-header" data-active="servicios"></div>
+
+<div class="svc-page-hero">
+  <div class="wrap">
+    <nav class="svc-breadcrumb">
+      <a href="/inspeccion-y-certificacion/">Inspección y Certificación</a>
+      <span>›</span>
+      <a href="/inspeccion-y-certificacion/acreditadas/instalaciones-deportivas/">Instalaciones deportivas</a>
+      <span>›</span>
+      Equipamiento de bádminton
+    </nav>
+    <div class="eyebrow">Servicio acreditado · 🏸 Bádminton</div>
+    <h1>Inspección de equipamiento de bádminton</h1>
+    <p class="lead">El bádminton es uno de los deportes que más pistas comparte con otros deportes en pabellones multiuso. La correcta instalación y el buen estado del equipamiento son fundamentales para garantizar la seguridad durante el juego.</p>
+  </div>
+</div>
+
+<div class="svc-layout">
+  <div class="wrap">
+    <div class="svc-grid">
+
+      <div class="svc-body">
+
+        <div class="svc-section">
+          <h2>Elementos inspeccionados</h2>
+          <p><strong>Postes</strong> — Verificación del estado estructural, la verticalidad y los sistemas de anclaje o base. En postes retráctiles integrados en el suelo del pabellón se comprueba el correcto funcionamiento del mecanismo.</p>
+          <p><strong>Sistemas de tensado de red</strong> — Revisión de los mecanismos de tensado y regulación de altura, que permiten adaptar la altura de la red al tipo de juego o uso del espacio.</p>
+          <p><strong>Red</strong> — Estado del tejido, costuras y refuerzos laterales.</p>
+        </div>
+
+        <div class="svc-section">
+          <h2>Nuestro servicio</h2>
+          <p>Inspeccionamos el conjunto del equipamiento conforme a la norma UNE-EN 1509. En pabellones con múltiples pistas de bádminton, realizamos la inspección de todas las pistas en una sola visita para minimizar el impacto en la actividad del pabellón.</p>
+          <p>La inspección se realiza con independencia total conforme a ISO 17020, y el certificado emitido tiene plena validez legal ante administraciones y aseguradoras.</p>
+        </div>
+
+        <div class="svc-section">
+          <h2>Intervención sobre el terreno</h2>
+          <ul class="svc-ul">
+            <li>Inspección visual de postes y comprobación de su verticalidad</li>
+            <li>Verificación de los sistemas de anclaje o base</li>
+            <li>En postes retráctiles: revisión del mecanismo de elevación y bloqueo</li>
+            <li>Comprobación del sistema de tensado de red</li>
+            <li>Estado de la red y sus refuerzos</li>
+            <li>Comunicación de resultados y clasificación de deficiencias</li>
+          </ul>
+        </div>
+
+        <div class="svc-section">
+          <h2>Documentación emitida</h2>
+          <ul class="svc-ul">
+            <li>Informe técnico completo con fotografías</li>
+            <li>Identificación de deficiencias y recomendaciones de mejora</li>
+            <li>Certificado de cumplimiento normativo si el resultado de la inspección es favorable</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="svc-sidebar">
+        <div class="svc-sidebar-card">
+          <h4>Normativa aplicable</h4>
+          <p><strong>UNE-EN 1509</strong></p>
+          <p style="margin-top:6px;font-size:12.5px;color:var(--muted)">Equipamiento de bádminton. Requisitos funcionales y de seguridad, métodos de ensayo.</p>
+        </div>
+        <div class="svc-enac-badge" data-flag="sello">Acreditado ENAC</div>
+        <div class="svc-sidebar-card">
+          <h4>¿Para quién?</h4>
+          <ul>
+            <li>Pabellones multiusos</li>
+            <li>Clubes de bádminton</li>
+            <li>Municipios y polideportivos</li>
+            <li>Colegios y universidades</li>
+          </ul>
+        </div>
+        <div class="svc-cta-card">
+          <h4>¿Cuántas pistas necesitas certificar?</h4>
+          <p>Realizamos todas las pistas en una sola visita para minimizar interrupciones.</p>
+          <a href="/contacto/">Solicitar presupuesto →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div id="site-footer"></div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<script>
+  document.write('<script src="' + SITE_PREFIX + '/js/firebase-init.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-config.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-header.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-footer.js"><\/script>');
+</script>
+<script>
+  if (SITE_PREFIX) {
+    document.querySelectorAll('a[href^="/"]').forEach(function(a){
+      a.setAttribute('href', SITE_PREFIX + a.getAttribute('href'));
+    });
+  }
+</script>
+</body>
+</html>

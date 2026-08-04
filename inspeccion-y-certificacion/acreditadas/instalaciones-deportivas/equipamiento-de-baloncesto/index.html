@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  window.SITE_PREFIX = location.hostname.endsWith('github.io') ? '/arp-web-preview' : '';
+  document.write('<link rel="stylesheet" href="' + SITE_PREFIX + '/css/tokens.css">');
+  document.write('<link rel="stylesheet" href="' + SITE_PREFIX + '/css/base.css">');
+</script>
+<title>Inspección de Equipamiento de Baloncesto — ARP Prevención</title>
+<meta name="description" content="Inspección y certificación de canastas, tableros y estructuras de baloncesto conforme a UNE-EN 1270. Acreditado ENAC.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div id="site-header" data-active="servicios"></div>
+
+<div class="svc-page-hero">
+  <div class="wrap">
+    <nav class="svc-breadcrumb">
+      <a href="/inspeccion-y-certificacion/">Inspección y Certificación</a>
+      <span>›</span>
+      <a href="/inspeccion-y-certificacion/acreditadas/instalaciones-deportivas/">Instalaciones deportivas</a>
+      <span>›</span>
+      Equipamiento de baloncesto
+    </nav>
+    <div class="eyebrow">Servicio acreditado · 🏀 Baloncesto</div>
+    <h1>Inspección de equipamiento de baloncesto</h1>
+    <p class="lead">Las canastas de baloncesto, tanto fijas como abatibles, deben soportar cargas dinámicas importantes y mantener su integridad a lo largo del tiempo. Una inspección técnica periódica garantiza su correcto estado y protege al titular frente a reclamaciones.</p>
+  </div>
+</div>
+
+<div class="svc-layout">
+  <div class="wrap">
+    <div class="svc-grid">
+
+      <div class="svc-body">
+
+        <div class="svc-section">
+          <h2>Tipos de equipamiento</h2>
+          <p><strong>Canastas fijas de exterior</strong> — Estructuras ancladas al suelo o a muros, habituales en patios de colegio, parques urbanos y pistas al aire libre. Sujetas a la intemperie y a un uso intensivo que puede degradar los anclajes y la estructura metálica.</p>
+          <p><strong>Canastas abatibles de pabellón</strong> — Estructuras articuladas que se elevan para aprovechar el espacio cuando no se juega. Su mecanismo de abatimiento y los contrapesos son los elementos de mayor riesgo y requieren una verificación específica.</p>
+          <p><strong>Canastas de minibasket</strong> — Aros y tableros a menor altura para uso infantil, regulados igualmente por la UNE-EN 1270.</p>
+        </div>
+
+        <div class="svc-section">
+          <h2>Nuestro servicio</h2>
+          <p>Inspeccionamos el conjunto de la instalación: estructura portante, sistemas de anclaje al suelo o pared, tableros, aros, redes y, en canastas abatibles, el mecanismo de abatimiento y los contrapesos. La inspección se realiza conforme a la norma UNE-EN 1270 por inspectores acreditados ENAC.</p>
+        </div>
+
+        <div class="svc-section">
+          <h2>Intervención sobre el terreno</h2>
+          <ul class="svc-ul">
+            <li>Inspección visual de la estructura portante y soldaduras</li>
+            <li>Verificación del estado de los anclajes al suelo o fijaciones a pared</li>
+            <li>Comprobación del estado del tablero, aro y red</li>
+            <li>En canastas abatibles: revisión del mecanismo de abatimiento y contrapesos</li>
+            <li>Comprobación del tratamiento anticorrosión y estado de la pintura</li>
+            <li>Comunicación de resultados y clasificación de deficiencias</li>
+          </ul>
+        </div>
+
+        <div class="svc-section">
+          <h2>Documentación emitida</h2>
+          <ul class="svc-ul">
+            <li>Informe técnico completo con fotografías de cada elemento inspeccionado</li>
+            <li>Identificación de deficiencias y recomendaciones de mejora</li>
+            <li>Certificado de cumplimiento normativo si el resultado de la inspección es favorable</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="svc-sidebar">
+        <div class="svc-sidebar-card">
+          <h4>Normativa aplicable</h4>
+          <p><strong>UNE-EN 1270</strong></p>
+          <p style="margin-top:6px;font-size:12.5px;color:var(--muted)">Equipamiento de baloncesto. Requisitos funcionales y de seguridad, métodos de ensayo.</p>
+        </div>
+        <div class="svc-enac-badge" data-flag="sello">Acreditado ENAC</div>
+        <div class="svc-sidebar-card">
+          <h4>¿Para quién?</h4>
+          <ul>
+            <li>Municipios y ayuntamientos</li>
+            <li>Colegios y universidades</li>
+            <li>Pabellones y polideportivos</li>
+            <li>Clubes y federaciones</li>
+          </ul>
+        </div>
+        <div class="svc-cta-card">
+          <h4>¿Cuántas canastas necesitas certificar?</h4>
+          <p>Ofrecemos tarifas especiales cuando se inspeccionan varios pabellones o instalaciones.</p>
+          <a href="/contacto/">Solicitar presupuesto →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div id="site-footer"></div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<script>
+  document.write('<script src="' + SITE_PREFIX + '/js/firebase-init.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-config.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-header.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-footer.js"><\/script>');
+</script>
+<script>
+  if (SITE_PREFIX) {
+    document.querySelectorAll('a[href^="/"]').forEach(function(a){
+      a.setAttribute('href', SITE_PREFIX + a.getAttribute('href'));
+    });
+  }
+</script>
+</body>
+</html>

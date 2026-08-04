@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  window.SITE_PREFIX = location.hostname.endsWith('github.io') ? '/arp-web-preview' : '';
+  document.write('<link rel="stylesheet" href="' + SITE_PREFIX + '/css/tokens.css">');
+  document.write('<link rel="stylesheet" href="' + SITE_PREFIX + '/css/base.css">');
+</script>
+<title>Inspección de Rocódromos y Estructuras de Escalada — ARP Prevención</title>
+<meta name="description" content="Inspección y certificación de rocódromos y estructuras artificiales de escalada conforme a UNE-EN 12572. Desde grandes tramos a muros urbanos.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div id="site-header" data-active="servicios"></div>
+
+<div class="svc-page-hero">
+  <div class="wrap">
+    <nav class="svc-breadcrumb">
+      <a href="/inspeccion-y-certificacion/">Inspección y Certificación</a>
+      <span>›</span>
+      <a href="/inspeccion-y-certificacion/">Acreditadas</a>
+      <span>›</span>
+      Rocódromos y estructuras de escalada
+    </nav>
+    <div class="eyebrow">Servicio acreditado</div>
+    <h1>Rocódromos y estructuras artificiales de escalada</h1>
+    <p class="lead">La escalada urbana no para de crecer. Inspeccionamos estructuras artificiales de escalada de todos los tipos y tamaños, desde grandes instalaciones deportivas hasta muros urbanos de pequeño formato.</p>
+  </div>
+</div>
+
+<div class="svc-layout">
+  <div class="wrap">
+    <div class="svc-grid">
+
+      <div class="svc-body">
+
+        <div class="svc-section">
+          <h2>Nuestro servicio</h2>
+          <p>Las estructuras artificiales de escalada concentran fuerzas y dinámicas que exigen una verificación técnica rigurosa. Un accidente en un rocódromo que no ha sido correctamente inspeccionado puede derivar en responsabilidades legales para el titular de la instalación. Nuestra inspección garantiza que la estructura cumple los requisitos de la norma UNE-EN 12572 y que su explotación es segura.</p>
+          <p>La actividad se realiza de forma completamente independiente y confidencial, conforme a la norma ISO 17020 como entidad de inspección tipo C. Cada certificado está firmado por un ingeniero titulado con plenas atribuciones legales.</p>
+        </div>
+
+        <div class="svc-section">
+          <h2>Intervención sobre el terreno</h2>
+          <ul class="svc-ul">
+            <li>Comprobación de los procedimientos de explotación y mantenimiento</li>
+            <li>Diagnóstico visual completo de presas, estructura portante, anclajes y sistemas de seguridad</li>
+            <li>Revisión del cumplimiento de las instrucciones del fabricante y de la normativa específica</li>
+            <li>Comprobación de la resistencia de los equipamientos</li>
+            <li>Verificación de señalización, equipos de protección individual disponibles y protocolos de emergencia</li>
+            <li>Comunicación detallada de los resultados al cliente</li>
+          </ul>
+        </div>
+
+        <div class="svc-section">
+          <h2>Documentación emitida</h2>
+          <ul class="svc-ul">
+            <li>Informe técnico completo con fotografías</li>
+            <li>Reporte de fallos de seguridad detectados, si los hubiera</li>
+            <li>Certificado de cumplimiento normativo, si el resultado de la inspección es favorable</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="svc-sidebar">
+        <div class="svc-sidebar-card">
+          <h4>Normativa aplicable</h4>
+          <p><strong>UNE-EN 12572</strong></p>
+          <p style="margin-top:6px;font-size:12.5px;color:var(--muted)">Estructuras artificiales de escalada. Requisitos de seguridad y métodos de ensayo.</p>
+        </div>
+        <div class="svc-enac-badge" data-flag="sello">Acreditado ENAC</div>
+        <div class="svc-sidebar-card">
+          <h4>Tipo de entidad</h4>
+          <p>Entidad de inspección tipo C</p>
+          <p style="margin-top:6px;font-size:12.5px;color:var(--muted)">ISO 17020 — máximo grado de reconocimiento legal y jurídico</p>
+        </div>
+        <div class="svc-cta-card">
+          <h4>¿Tienes un rocódromo o muro de escalada?</h4>
+          <p>Cuéntanos las características de la estructura y te informamos sin compromiso.</p>
+          <a href="/contacto/">Solicitar presupuesto →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div id="site-footer"></div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<script>
+  document.write('<script src="' + SITE_PREFIX + '/js/firebase-init.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-config.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-header.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-footer.js"><\/script>');
+</script>
+<script>
+  if (SITE_PREFIX) {
+    document.querySelectorAll('a[href^="/"]').forEach(function(a){
+      a.setAttribute('href', SITE_PREFIX + a.getAttribute('href'));
+    });
+  }
+</script>
+</body>
+</html>

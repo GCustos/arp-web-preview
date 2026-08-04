@@ -72,7 +72,62 @@ footer.site li a:hover{color:var(--gold)}
 .svc-card p{font-size:14px;color:#5a564e;line-height:1.55}
 .svc-tag{display:inline-block;margin-top:14px;font-family:var(--font-mono);font-size:10px;color:var(--pine);background:#eef1ea;padding:3px 9px;border-radius:5px;letter-spacing:.04em}
 
+/* ── Páginas de servicio individuales ── */
+.svc-breadcrumb{font-family:var(--font-mono);font-size:11px;color:var(--muted);letter-spacing:.04em;margin-bottom:20px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.svc-breadcrumb a{color:var(--muted);text-decoration:underline;text-underline-offset:2px}
+.svc-breadcrumb a:hover{color:var(--ink)}
+.svc-breadcrumb span{opacity:.5}
+
+.svc-page-hero{padding:48px 0 44px;border-bottom:1px solid var(--border)}
+.svc-page-hero .eyebrow{font-family:var(--font-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--rope);display:flex;align-items:center;gap:8px;margin-bottom:14px}
+.svc-page-hero .eyebrow::before{content:'';width:18px;height:1px;background:var(--rope)}
+.svc-page-hero h1{font-size:40px;line-height:1.1;max-width:660px;margin-bottom:16px}
+.svc-page-hero p.lead{font-size:17px;color:#4a463f;max-width:620px;line-height:1.65}
+
+.svc-layout{padding:64px 0 88px}
+.svc-grid{display:grid;grid-template-columns:1fr 300px;gap:72px;align-items:start}
+.svc-body{}
+.svc-section{margin-bottom:44px}
+.svc-section:last-child{margin-bottom:0}
+.svc-section h2{font-size:19px;font-weight:700;color:var(--ink);margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.svc-section p{font-size:15px;color:#4a463f;line-height:1.75;margin-bottom:12px}
+.svc-section p:last-child{margin-bottom:0}
+.svc-ul{list-style:none;padding:0;margin:0}
+.svc-ul li{font-size:14.5px;color:#4a463f;line-height:1.65;padding:9px 0;border-bottom:1px solid var(--border);display:flex;gap:10px;align-items:baseline}
+.svc-ul li::before{content:'→';color:var(--gold-deep);font-weight:700;flex-shrink:0;font-size:12px}
+.svc-ul li:last-child{border-bottom:none}
+
+.svc-sidebar{display:flex;flex-direction:column;gap:14px;position:sticky;top:88px}
+.svc-sidebar-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-md);padding:22px}
+.svc-sidebar-card h4{font-size:10.5px;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.09em;color:var(--muted);margin-bottom:10px}
+.svc-sidebar-card p,.svc-sidebar-card li{font-size:13.5px;color:var(--ink);line-height:1.6}
+.svc-sidebar-card ul{list-style:none;padding:0}
+.svc-sidebar-card li{padding:4px 0;border-bottom:1px solid var(--border)}
+.svc-sidebar-card li:last-child{border-bottom:none}
+.svc-enac-badge{display:flex;align-items:center;gap:8px;background:#eef1ea;border:1px solid #c8d4bf;border-radius:9px;padding:10px 14px;font-size:12.5px;font-family:var(--font-mono);color:var(--pine);letter-spacing:.04em}
+.svc-enac-badge::before{content:'✓';font-weight:700;font-size:14px}
+.svc-no-badge{display:flex;align-items:center;gap:8px;background:#f5f2e8;border:1px solid var(--border);border-radius:9px;padding:10px 14px;font-size:12px;font-family:var(--font-mono);color:var(--muted);letter-spacing:.03em}
+.svc-cta-card{background:var(--ink);border-radius:var(--radius-md);padding:24px;color:var(--parchment)}
+.svc-cta-card h4{font-size:15px;color:#fff;margin-bottom:8px}
+.svc-cta-card p{font-size:13px;color:#b0a98f;line-height:1.55;margin-bottom:16px}
+.svc-cta-card a{display:block;background:var(--gold);color:var(--ink);text-align:center;padding:11px;border-radius:8px;font-weight:600;font-size:13.5px}
+.svc-cta-card a:hover{background:#e0b055}
+.svc-back{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);font-family:var(--font-mono);text-decoration:underline;text-underline-offset:3px;margin-bottom:56px}
+.svc-back:hover{color:var(--ink)}
+
+/* Subtipos de instalaciones deportivas */
+.sport-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:4px}
+.sport-card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:18px 16px;text-decoration:none;transition:.15s;display:block}
+.sport-card:hover{border-color:var(--gold-deep);transform:translateY(-2px)}
+.sport-card .ico{font-size:22px;margin-bottom:8px}
+.sport-card h3{font-size:14px;font-weight:600;color:var(--ink);margin-bottom:4px}
+.sport-card p{font-size:12px;color:var(--muted);line-height:1.45}
+
 @media(max-width:960px){
   nav.site-nav{display:none}
   .footer-grid{grid-template-columns:1fr 1fr}
+  .svc-grid{grid-template-columns:1fr;gap:40px}
+  .svc-sidebar{position:static}
+  .svc-page-hero h1{font-size:30px}
+  .sport-grid{grid-template-columns:1fr 1fr}
 }

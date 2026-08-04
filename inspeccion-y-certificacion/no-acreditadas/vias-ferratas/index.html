@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  window.SITE_PREFIX = location.hostname.endsWith('github.io') ? '/arp-web-preview' : '';
+  document.write('<link rel="stylesheet" href="' + SITE_PREFIX + '/css/tokens.css">');
+  document.write('<link rel="stylesheet" href="' + SITE_PREFIX + '/css/base.css">');
+</script>
+<title>Inspección de Vías Ferratas — ARP Prevención</title>
+<meta name="description" content="Inspección y certificación de vías ferratas conforme a UNE-EN 16869:2018. El único estándar europeo para diseño y construcción de vías ferratas.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div id="site-header" data-active="servicios"></div>
+
+<div class="svc-page-hero">
+  <div class="wrap">
+    <nav class="svc-breadcrumb">
+      <a href="/inspeccion-y-certificacion/">Inspección y Certificación</a>
+      <span>›</span>
+      <a href="/inspeccion-y-certificacion/">No acreditadas</a>
+      <span>›</span>
+      Vías ferratas
+    </nav>
+    <div class="eyebrow">Inspección técnica</div>
+    <h1>Vías ferratas</h1>
+    <p class="lead">Las vías ferratas han crecido de forma exponencial en toda España como atracción de turismo activo. Su peligrosidad inherente y la ausencia de normativa de acreditación hacen imprescindible una inspección técnica rigurosa e independiente.</p>
+  </div>
+</div>
+
+<div class="svc-layout">
+  <div class="wrap">
+    <div class="svc-grid">
+
+      <div class="svc-body">
+
+        <div class="svc-section">
+          <h2>Nuestro servicio</h2>
+          <p>Las vías ferratas concentran riesgos importantes: aunque las caídas son poco frecuentes, sus consecuencias suelen ser graves. Muchos practicantes acceden sin el equipo adecuado o sin la preparación física necesaria, lo que exige que la instalación en sí sea impecable desde el punto de vista técnico.</p>
+          <p>Realizamos la inspección conforme a la norma <strong>UNE-EN 16869:2018</strong>, el único estándar europeo actualmente vigente para el diseño y construcción de vías ferratas. Esta inspección no está acreditada por ENAC — no existe actualmente un alcance de acreditación específico para este tipo de instalación — pero se realiza con el mismo rigor e independencia que el resto de nuestras actividades.</p>
+        </div>
+
+        <div class="svc-section">
+          <h2>Intervención sobre el terreno</h2>
+          <ul class="svc-ul">
+            <li>Verificación de los procedimientos operativos y de señalización de la vía</li>
+            <li>Inspección visual integral de pasamanos, grapas, escalones, cables de seguridad y anclajes</li>
+            <li>Evaluación de la resistencia de los anclajes y sistemas de protección frente a caídas</li>
+            <li>Comprobación del estado de la roca y de las zonas de paso con riesgo geológico</li>
+            <li>Revisión de los puntos de inicio, final y posibles salidas de emergencia</li>
+            <li>Comunicación detallada de los resultados al cliente</li>
+          </ul>
+        </div>
+
+        <div class="svc-section">
+          <h2>Documentación emitida</h2>
+          <ul class="svc-ul">
+            <li>Informe técnico completo con fotografías de todos los elementos inspeccionados</li>
+            <li>Identificación de deficiencias estructurales o de seguridad</li>
+            <li>Certificado de conformidad técnica, si el resultado de la inspección es favorable</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="svc-sidebar">
+        <div class="svc-sidebar-card">
+          <h4>Normativa aplicable</h4>
+          <p><strong>UNE-EN 16869:2018</strong></p>
+          <p style="margin-top:6px;font-size:12.5px;color:var(--muted)">Diseño y construcción de vía ferrata. Único estándar europeo vigente.</p>
+        </div>
+        <div class="svc-no-badge">Sin acreditación ENAC específica</div>
+        <div class="svc-sidebar-card">
+          <h4>¿Por qué sin acreditación?</h4>
+          <p style="font-size:13px;color:var(--muted);line-height:1.6">No existe actualmente un alcance de acreditación ENAC para vías ferratas. La inspección se realiza con el mismo rigor e independencia que nuestros servicios acreditados.</p>
+        </div>
+        <div class="svc-cta-card">
+          <h4>¿Tienes una vía ferrata que certificar?</h4>
+          <p>Cuéntanos la longitud y características de la vía y te informamos sin compromiso.</p>
+          <a href="/contacto/">Solicitar presupuesto →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div id="site-footer"></div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<script>
+  document.write('<script src="' + SITE_PREFIX + '/js/firebase-init.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-config.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-header.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-footer.js"><\/script>');
+</script>
+<script>
+  if (SITE_PREFIX) {
+    document.querySelectorAll('a[href^="/"]').forEach(function(a){
+      a.setAttribute('href', SITE_PREFIX + a.getAttribute('href'));
+    });
+  }
+</script>
+</body>
+</html>

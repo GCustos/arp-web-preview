@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  window.SITE_PREFIX = location.hostname.endsWith('github.io') ? '/arp-web-preview' : '';
+  document.write('<link rel="stylesheet" href="' + SITE_PREFIX + '/css/tokens.css">');
+  document.write('<link rel="stylesheet" href="' + SITE_PREFIX + '/css/base.css">');
+</script>
+<title>Inspección de Equipamiento de Voleibol — ARP Prevención</title>
+<meta name="description" content="Inspección y certificación de postes, redes y sistemas de tensado de voleibol conforme a UNE-EN 1271. Acreditado ENAC.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div id="site-header" data-active="servicios"></div>
+
+<div class="svc-page-hero">
+  <div class="wrap">
+    <nav class="svc-breadcrumb">
+      <a href="/inspeccion-y-certificacion/">Inspección y Certificación</a>
+      <span>›</span>
+      <a href="/inspeccion-y-certificacion/acreditadas/instalaciones-deportivas/">Instalaciones deportivas</a>
+      <span>›</span>
+      Equipamiento de voleibol
+    </nav>
+    <div class="eyebrow">Servicio acreditado · 🏐 Voleibol</div>
+    <h1>Inspección de equipamiento de voleibol</h1>
+    <p class="lead">Los postes de voleibol y sus sistemas de anclaje y tensado concentran los mayores riesgos de este equipamiento. Una inspección técnica periódica verifica su integridad y garantiza la seguridad de los jugadores durante el juego.</p>
+  </div>
+</div>
+
+<div class="svc-layout">
+  <div class="wrap">
+    <div class="svc-grid">
+
+      <div class="svc-body">
+
+        <div class="svc-section">
+          <h2>Tipos de equipamiento</h2>
+          <p><strong>Postes fijos</strong> — Anclados directamente al suelo o a sistemas de encastre. El anclaje y su estado son el punto crítico de la inspección.</p>
+          <p><strong>Postes con base</strong> — Postes sobre bases de contrapeso, habituales en pabellones multiusos donde el voleibol comparte espacio con otros deportes. Se revisan las bases, su peso real y el estado de las ruedas y frenos cuando los hay.</p>
+          <p><strong>Equipamiento de vóley playa</strong> — Postes con sistemas de fijación específicos para arena, con requisitos diferenciados respecto al equipamiento de pabellón.</p>
+        </div>
+
+        <div class="svc-section">
+          <h2>Nuestro servicio</h2>
+          <p>Inspeccionamos todos los componentes del equipamiento: postes, sistemas de anclaje o base, mecanismos de tensado de red, antenas y la red propiamente dicha. La inspección se realiza conforme a la norma UNE-EN 1271 con independencia total conforme a ISO 17020.</p>
+        </div>
+
+        <div class="svc-section">
+          <h2>Intervención sobre el terreno</h2>
+          <ul class="svc-ul">
+            <li>Inspección visual de postes y verificación de la ausencia de deformaciones o corrosión</li>
+            <li>Comprobación del sistema de anclaje al suelo o del contrapeso en postes con base</li>
+            <li>Revisión del mecanismo de tensado de red y su funcionamiento</li>
+            <li>Estado de la red, antenas y sistemas de sujeción</li>
+            <li>En postes con ruedas: verificación del sistema de freno</li>
+            <li>Comunicación de resultados y clasificación de deficiencias</li>
+          </ul>
+        </div>
+
+        <div class="svc-section">
+          <h2>Documentación emitida</h2>
+          <ul class="svc-ul">
+            <li>Informe técnico completo con fotografías</li>
+            <li>Identificación de deficiencias y recomendaciones de mejora</li>
+            <li>Certificado de cumplimiento normativo si el resultado de la inspección es favorable</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="svc-sidebar">
+        <div class="svc-sidebar-card">
+          <h4>Normativa aplicable</h4>
+          <p><strong>UNE-EN 1271</strong></p>
+          <p style="margin-top:6px;font-size:12.5px;color:var(--muted)">Equipamiento de voleibol. Requisitos funcionales y de seguridad, métodos de ensayo.</p>
+        </div>
+        <div class="svc-enac-badge" data-flag="sello">Acreditado ENAC</div>
+        <div class="svc-sidebar-card">
+          <h4>¿Para quién?</h4>
+          <ul>
+            <li>Pabellones y polideportivos</li>
+            <li>Municipios y ayuntamientos</li>
+            <li>Colegios y universidades</li>
+            <li>Clubes y federaciones</li>
+          </ul>
+        </div>
+        <div class="svc-cta-card">
+          <h4>¿Necesitas certificar tu equipamiento?</h4>
+          <p>Cuéntanos el número de conjuntos a inspeccionar y te enviamos propuesta.</p>
+          <a href="/contacto/">Solicitar presupuesto →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div id="site-footer"></div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<script>
+  document.write('<script src="' + SITE_PREFIX + '/js/firebase-init.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-config.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-header.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-footer.js"><\/script>');
+</script>
+<script>
+  if (SITE_PREFIX) {
+    document.querySelectorAll('a[href^="/"]').forEach(function(a){
+      a.setAttribute('href', SITE_PREFIX + a.getAttribute('href'));
+    });
+  }
+</script>
+</body>
+</html>

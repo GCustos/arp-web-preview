@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  window.SITE_PREFIX = location.hostname.endsWith('github.io') ? '/arp-web-preview' : '';
+  document.write('<link rel="stylesheet" href="' + SITE_PREFIX + '/css/tokens.css">');
+  document.write('<link rel="stylesheet" href="' + SITE_PREFIX + '/css/base.css">');
+</script>
+<title>Inspección de Juegos Especiales e Instalaciones Singulares — ARP Prevención</title>
+<meta name="description" content="Inspección de instalaciones de ocio que no encajan en una normativa estándar. Evaluamos cada caso y emitimos el certificado más adecuado.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div id="site-header" data-active="servicios"></div>
+
+<div class="svc-page-hero">
+  <div class="wrap">
+    <nav class="svc-breadcrumb">
+      <a href="/inspeccion-y-certificacion/">Inspección y Certificación</a>
+      <span>›</span>
+      <a href="/inspeccion-y-certificacion/">No acreditadas</a>
+      <span>›</span>
+      Juegos especiales
+    </nav>
+    <div class="eyebrow">Inspección técnica</div>
+    <h1>Juegos especiales e instalaciones singulares</h1>
+    <p class="lead">Algunas instalaciones de ocio y actividad física no tienen una normativa específica que las regule. Estudiamos cada caso y emitimos la documentación técnica más adecuada para garantizar la seguridad y la cobertura legal del titular.</p>
+  </div>
+</div>
+
+<div class="svc-layout">
+  <div class="wrap">
+    <div class="svc-grid">
+
+      <div class="svc-body">
+
+        <div class="svc-section">
+          <h2>¿Qué es un juego especial?</h2>
+          <p>La categoría de juegos especiales es amplia: entran aquí todas aquellas instalaciones de ocio activo, aventura o deporte que no disponen de una normativa propia o cuya tipología no encaja exactamente en ninguno de los estándares establecidos. Desde tirolinas atípicas hasta instalaciones combinadas, pasando por atracciones de feria, circuitos de obstáculos o elementos de diseño singular.</p>
+          <p>El hecho de no tener una norma específica no significa que la instalación esté libre de responsabilidad. Al contrario: la ausencia de regulación hace más importante contar con un informe técnico que acredite que la instalación es segura y que se han adoptado todas las medidas razonables para proteger a los usuarios.</p>
+        </div>
+
+        <div class="svc-section">
+          <h2>Nuestro servicio</h2>
+          <p>Analizamos cada instalación singular y determinamos cuál es el marco normativo más próximo y aplicable. A partir de ahí, diseñamos el proceso de inspección más adecuado y emitimos la documentación técnica que mejor protege al titular desde el punto de vista legal y técnico.</p>
+          <p>Con más de 17 años de experiencia en el sector y nuestra participación en comités europeos de normalización, tenemos el conocimiento necesario para abordar prácticamente cualquier tipo de instalación, por singular que sea.</p>
+        </div>
+
+        <div class="svc-section">
+          <h2>Intervención sobre el terreno</h2>
+          <ul class="svc-ul">
+            <li>Análisis previo de la instalación para determinar la normativa más aplicable</li>
+            <li>Verificación de los procedimientos operativos y de seguridad</li>
+            <li>Diagnóstico visual completo de todos los elementos relevantes</li>
+            <li>Pruebas de resistencia cuando la naturaleza de la instalación lo requiera</li>
+            <li>Comunicación detallada de los resultados y recomendaciones al cliente</li>
+          </ul>
+        </div>
+
+        <div class="svc-section">
+          <h2>Documentación emitida</h2>
+          <ul class="svc-ul">
+            <li>Informe técnico completo adaptado a la tipología específica de la instalación</li>
+            <li>Identificación de deficiencias y recomendaciones de mejora</li>
+            <li>Certificado o declaración de conformidad técnica, según el caso</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="svc-sidebar">
+        <div class="svc-sidebar-card">
+          <h4>Normativa</h4>
+          <p style="font-size:13px;color:var(--muted);line-height:1.6">Se determina caso a caso en función de la tipología de la instalación. Aplicamos el estándar más próximo o las mejores prácticas del sector.</p>
+        </div>
+        <div class="svc-no-badge">Sin normativa específica</div>
+        <div class="svc-sidebar-card">
+          <h4>¿Tienes dudas?</h4>
+          <p style="font-size:13px;color:var(--muted);line-height:1.6">Cuéntanos tu instalación y te decimos si podemos inspeccionarla y qué tipo de documentación podemos emitir. Sin compromiso.</p>
+        </div>
+        <div class="svc-cta-card">
+          <h4>Cuéntanos tu instalación</h4>
+          <p>Analizamos el caso y te proponemos la solución más adecuada para tu tipo de instalación.</p>
+          <a href="/contacto/">Consultar sin compromiso →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div id="site-footer"></div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<script>
+  document.write('<script src="' + SITE_PREFIX + '/js/firebase-init.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-config.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-header.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-footer.js"><\/script>');
+</script>
+<script>
+  if (SITE_PREFIX) {
+    document.querySelectorAll('a[href^="/"]').forEach(function(a){
+      a.setAttribute('href', SITE_PREFIX + a.getAttribute('href'));
+    });
+  }
+</script>
+</body>
+</html>
