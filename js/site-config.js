@@ -26,7 +26,7 @@ const CONFIG_FALLBACK = {
   nombre: "Adell Riesgos y Prevención S.L.",
   nombreCorto: "Arp Prevención S.L.",
   sedeSocial: "C/ Gabriel Miró 3, Edificio Wertice, Planta 1ª Puerta 4, 41704 Dos Hermanas, Sevilla",
-  sedeFiscal: "Calle Collblanc, nº 150, 08028 Barcelona",
+  sedeFiscal: "C/ Gabriel Miró 3, Edificio Wertice, Planta 1ª Puerta 4, 41704 Dos Hermanas, Sevilla",
   telefono: "93 377 67 95",
   email: "info@arpprevencion.com",
   web: "www.arpprevencion.com",
