@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  window.SITE_PREFIX = location.hostname.endsWith('github.io') ? '/arp-web-preview' : '';
+  document.write('<link rel="stylesheet" href="' + SITE_PREFIX + '/css/tokens.css">');
+  document.write('<link rel="stylesheet" href="' + SITE_PREFIX + '/css/base.css">');
+</script>
+<title>Aviso legal — ARP Prevención</title>
+<meta name="description" content="Aviso legal de Adell Riesgos y Prevención S.L. — información identificativa, condiciones de uso, protección de datos y propiedad intelectual.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  .page-hero{padding:64px 0 56px;border-bottom:1px solid var(--border)}
+  .page-hero .eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--rope);display:flex;align-items:center;gap:10px;margin-bottom:16px}
+  .page-hero .eyebrow::before{content:'';width:22px;height:1px;background:var(--rope)}
+  .page-hero h1{font-size:44px;line-height:1.1;max-width:680px;margin-bottom:12px}
+
+  .empresa-nav{display:flex;gap:6px;margin-top:32px;flex-wrap:wrap}
+  .empresa-nav a{font-family:var(--font-display);font-size:13.5px;font-weight:500;padding:8px 18px;border-radius:8px;border:1.5px solid var(--border)}
+  .empresa-nav a.active{background:var(--ink);color:var(--parchment);border-color:var(--ink)}
+  .empresa-nav a:hover:not(.active){border-color:var(--ink)}
+
+  .legal-content{padding:72px 0 96px}
+  .legal-grid{display:grid;grid-template-columns:1fr 280px;gap:80px;align-items:start}
+
+  .legal-body h2{font-size:16px;font-weight:700;color:var(--ink);margin:36px 0 12px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+  .legal-body h2:first-child{margin-top:0}
+  .legal-body p{font-size:14px;color:#4a463f;line-height:1.75;margin-bottom:12px}
+  .legal-body p:last-child{margin-bottom:0}
+  .legal-body a{color:var(--rope);text-decoration:underline}
+
+  .id-table{width:100%;border-collapse:collapse;margin-bottom:24px;font-size:13.5px}
+  .id-table tr{border-bottom:1px solid var(--border)}
+  .id-table tr:last-child{border-bottom:none}
+  .id-table td{padding:10px 0;vertical-align:top}
+  .id-table td:first-child{color:var(--muted);width:160px;flex-shrink:0;font-weight:500}
+  .id-table td:last-child{color:var(--ink)}
+
+  .legal-sidebar{position:sticky;top:24px}
+  .sidebar-nav{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-md);padding:20px 24px}
+  .sidebar-nav h4{font-size:11px;font-family:var(--font-mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:14px}
+  .sidebar-nav a{display:block;font-size:13px;color:var(--ink);padding:6px 0;border-bottom:1px solid var(--border);text-decoration:none}
+  .sidebar-nav a:last-child{border-bottom:none}
+  .sidebar-nav a:hover{color:var(--gold-deep)}
+
+  @media(max-width:960px){
+    .legal-grid{grid-template-columns:1fr;gap:40px}
+    .legal-sidebar{position:static}
+    .page-hero h1{font-size:32px}
+  }
+</style>
+</head>
+<body>
+
+<div id="site-header" data-active="empresa"></div>
+
+<section class="page-hero">
+  <div class="wrap">
+    <div class="eyebrow">La empresa</div>
+    <h1>Aviso legal</h1>
+    <nav class="empresa-nav">
+      <a href="/empresa/">La empresa</a>
+      <a href="/empresa/quienes-somos/">Quiénes somos</a>
+      <a href="/empresa/politica-de-empresa/">Política de empresa</a>
+      <a href="/empresa/aviso-legal/" class="active">Aviso legal</a>
+    </nav>
+  </div>
+</section>
+
+<div class="legal-content">
+  <div class="wrap">
+    <div class="legal-grid">
+
+      <div class="legal-body">
+
+        <h2 id="identificacion">1. Datos identificativos</h2>
+        <table class="id-table">
+          <tr><td>Razón social</td><td data-config="nombre">Adell Riesgos y Prevención S.L.</td></tr>
+          <tr><td>CIF</td><td>B64399793</td></tr>
+          <tr><td>Domicilio social</td><td data-config="sedeFiscal">C/ Gabriel Miró 3, Edificio Wertice, Planta 1ª Puerta 4, 41704 Dos Hermanas, Sevilla</td></tr>
+          <tr><td>Registro Mercantil</td><td>Barcelona, tomo 39157, folio 134, hoja B-339825</td></tr>
+          <tr><td>Teléfono</td><td><a data-config="telefono">685 76 26 45</a></td></tr>
+          <tr><td>Email</td><td><a data-config="email">info@arpprevencion.com</a></td></tr>
+          <tr><td>Web</td><td><a data-config="web">www.arpprevencion.com</a></td></tr>
+        </table>
+
+        <h2 id="usuarios">2. Usuarios</h2>
+        <p>El acceso y uso de este sitio web atribuye la condición de usuario e implica la aceptación plena y sin reservas de todas las disposiciones incluidas en este aviso legal. El usuario se compromete a hacer un uso adecuado de los contenidos y servicios que se ofrecen y a no emplearlos para actividades ilícitas o contrarias a la buena fe.</p>
+
+        <h2 id="uso">3. Uso del portal</h2>
+        <p>El usuario se compromete a proporcionar información veraz en los formularios de contacto y a no utilizar identidades ajenas. Queda expresamente prohibida la difusión de contenido ilícito, discriminatorio o que atente contra los derechos de terceros, así como la introducción de virus o código malicioso que pueda dañar los sistemas de información del titular o de terceros.</p>
+
+        <h2 id="datos">4. Protección de datos</h2>
+        <p>De conformidad con el Reglamento (UE) 2016/679 del Parlamento Europeo (RGPD) y la Ley Orgánica 3/2018 de Protección de Datos Personales y garantía de los derechos digitales (LOPDGDD), los datos personales recabados a través de los formularios de este sitio serán tratados por Adell Riesgos y Prevención S.L. con la finalidad exclusiva de gestionar la solicitud realizada.</p>
+        <p>No se cederán datos a terceros salvo obligación legal. El usuario puede ejercer sus derechos de acceso, rectificación, supresión, oposición, limitación del tratamiento y portabilidad dirigiéndose por escrito a la dirección indicada en el apartado 1 o al correo <a data-config="email">info@arpprevencion.com</a>.</p>
+
+        <h2 id="propiedad">5. Propiedad intelectual e industrial</h2>
+        <p>Adell Riesgos y Prevención S.L. es titular de todos los derechos de propiedad intelectual e industrial sobre los contenidos de este sitio web, incluyendo textos, imágenes, logotipos y diseño. Queda prohibida su reproducción, distribución, comunicación pública o transformación con fines comerciales sin autorización expresa. El uso personal y privado está permitido siempre que no se alteren los contenidos ni se suprima la atribución.</p>
+
+        <h2 id="responsabilidad">6. Exclusión de responsabilidad</h2>
+        <p>Adell Riesgos y Prevención S.L. no se responsabiliza de los daños o perjuicios derivados de errores u omisiones en los contenidos, de la indisponibilidad temporal del portal ni de la transmisión de virus o programas maliciosos, siempre que se hayan adoptado todas las medidas tecnológicas necesarias para evitarlo.</p>
+        <p>Los enlaces a sitios web de terceros se ofrecen como referencia informativa. El titular no asume responsabilidad alguna sobre el contenido o la disponibilidad de dichos sitios.</p>
+
+        <h2 id="legislacion">7. Legislación aplicable y jurisdicción</h2>
+        <p>Las presentes condiciones se rigen por la legislación española. Para la resolución de cualquier controversia derivada del uso de este sitio, las partes se someten a los juzgados y tribunales competentes conforme a la normativa vigente, con renuncia expresa a cualquier otro fuero que pudiera corresponderles.</p>
+
+      </div>
+
+      <div class="legal-sidebar">
+        <div class="sidebar-nav">
+          <h4>Contenido</h4>
+          <a href="#identificacion">1. Datos identificativos</a>
+          <a href="#usuarios">2. Usuarios</a>
+          <a href="#uso">3. Uso del portal</a>
+          <a href="#datos">4. Protección de datos</a>
+          <a href="#propiedad">5. Propiedad intelectual</a>
+          <a href="#responsabilidad">6. Responsabilidad</a>
+          <a href="#legislacion">7. Legislación</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div id="site-footer"></div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<script>
+  document.write('<script src="' + SITE_PREFIX + '/js/firebase-init.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-config.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-header.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-footer.js"><\/script>');
+</script>
+<script>
+  if (SITE_PREFIX) {
+    document.querySelectorAll('a[href^="/"]').forEach(function(a){
+      a.setAttribute('href', SITE_PREFIX + a.getAttribute('href'));
+    });
+  }
+</script>
+</body>
+</html>

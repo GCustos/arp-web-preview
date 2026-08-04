@@ -27,7 +27,7 @@ const CONFIG_FALLBACK = {
   nombreCorto: "Arp Prevención S.L.",
   sedeSocial: "C/ Gabriel Miró 3, Edificio Wertice, Planta 1ª Puerta 4, 41704 Dos Hermanas, Sevilla",
   sedeFiscal: "C/ Gabriel Miró 3, Edificio Wertice, Planta 1ª Puerta 4, 41704 Dos Hermanas, Sevilla",
-  telefono: "93 377 67 95",
+  telefono: "685 76 26 45",
   email: "info@arpprevencion.com",
   web: "www.arpprevencion.com",
   acreditacion: "Nº 489 / EI 558",
@@ -54,7 +54,15 @@ function applyConfig(empresa){
   // Rellena cualquier elemento marcado con data-config="campo"
   document.querySelectorAll('[data-config]').forEach(el => {
     const key = el.getAttribute('data-config');
-    if(empresa[key] !== undefined && empresa[key] !== '') el.textContent = empresa[key];
+    const v = empresa[key];
+    if(v === undefined || v === '') return;
+    el.textContent = v;
+    // Si es un enlace, también actualiza el href automáticamente
+    if(el.tagName === 'A'){
+      if(key === 'telefono') el.href = 'tel:+34' + v.replace(/[\s\-\.]/g, '');
+      else if(key === 'email') el.href = 'mailto:' + v;
+      else if(key === 'web') el.href = 'https://' + v.replace(/^https?:\/\//, '');
+    }
   });
 
   // Enlaces de redes sociales — solo se muestran si el campo existe
