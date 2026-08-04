@@ -90,3 +90,26 @@ function applyConfig(empresa){
 // re-aplicar la config a elementos renderizados después de la primera llamada.
 window.applyConfig = applyConfig;
 window.siteConfigReady = loadSiteConfig();
+
+// Carga la imagen de cabecera de cualquier página de servicio.
+// Solo actúa si existe un .svc-page-hero con data-hero-img.
+// Si el archivo no existe → el hero mantiene su aspecto original sin error.
+(function initHeroImg(){
+  var hero = document.querySelector('.svc-page-hero[data-hero-img]');
+  if(!hero) return;
+  var src = (window.SITE_PREFIX || '') + hero.getAttribute('data-hero-img');
+  var test = new Image();
+  test.onload = function(){
+    hero.classList.add('has-photo');
+    var overlay = document.createElement('div');
+    overlay.className = 'svc-page-hero-overlay';
+    var img = document.createElement('img');
+    img.className = 'svc-page-hero-img';
+    img.src = src;
+    img.alt = '';
+    img.setAttribute('aria-hidden','true');
+    hero.insertBefore(overlay, hero.firstChild);
+    hero.insertBefore(img, hero.firstChild);
+  };
+  test.src = src;
+})();
