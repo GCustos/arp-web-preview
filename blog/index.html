@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  window.SITE_PREFIX = location.hostname.endsWith('github.io') ? '/arp-web-preview' : '';
+  document.write('<link rel="stylesheet" href="' + SITE_PREFIX + '/css/tokens.css">');
+  document.write('<link rel="stylesheet" href="' + SITE_PREFIX + '/css/base.css">');
+</script>
+<title>Casos — ARP Prevención</title>
+<meta name="description" content="Casos prácticos e inspecciones destacadas del equipo de ARP Prevención. Parques de aventura, rocódromos, equipamiento deportivo y más.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  .blog-hero{padding:56px 0 48px;border-bottom:1px solid var(--border)}
+  .blog-hero .eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--rope);display:flex;align-items:center;gap:10px;margin-bottom:16px}
+  .blog-hero .eyebrow::before{content:'';width:22px;height:1px;background:var(--rope)}
+  .blog-hero h1{font-size:44px;line-height:1.1;max-width:680px;margin-bottom:16px}
+  .blog-hero p.lead{font-size:17px;color:#4a463f;max-width:600px;line-height:1.6}
+
+  .blog-body{padding:56px 0 88px}
+  .blog-grid{display:grid;grid-template-columns:1fr 1fr;gap:32px}
+
+  .post-card{display:block;text-decoration:none;color:inherit;border:1px solid var(--border);border-radius:10px;overflow:hidden;transition:transform .15s,box-shadow .15s,border-color .15s}
+  .post-card:hover{border-color:var(--gold-deep);transform:translateY(-3px);box-shadow:0 14px 30px rgba(27,27,24,.08)}
+  .post-card-img{width:100%;height:200px;object-fit:cover;display:block;background:var(--border)}
+  .post-card-body{padding:24px 26px 28px}
+  .post-card-meta{display:flex;align-items:center;gap:14px;margin-bottom:12px}
+  .post-card-date{font-family:var(--font-mono);font-size:11px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+  .post-card-tag{font-family:var(--font-mono);font-size:10.5px;color:var(--rope);background:#f5ede0;border-radius:20px;padding:2px 10px;letter-spacing:.04em}
+  .post-card h3{font-size:20px;line-height:1.25;margin-bottom:10px}
+  .post-card p{font-size:14px;color:var(--muted);line-height:1.65}
+  .post-card-arrow{display:inline-block;margin-top:16px;font-size:13px;color:var(--gold-deep);font-weight:600;font-family:var(--font-display)}
+
+  .blog-empty{padding:80px 0;text-align:center}
+  .blog-empty .ico{font-size:48px;margin-bottom:20px}
+  .blog-empty h3{font-size:22px;margin-bottom:10px}
+  .blog-empty p{font-size:15px;color:var(--muted);max-width:440px;margin:0 auto}
+
+  .blog-loading{padding:80px 0;text-align:center;font-family:var(--font-mono);font-size:12px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+
+  @media(max-width:860px){
+    .blog-grid{grid-template-columns:1fr}
+    .blog-hero h1{font-size:32px}
+  }
+</style>
+</head>
+<body>
+
+<div id="site-header" data-active="blog"></div>
+
+<section class="blog-hero">
+  <div class="wrap">
+    <div class="eyebrow">Casos e inspecciones</div>
+    <h1>Casos</h1>
+    <p class="lead">Inspecciones reales, instalaciones reales. Publicamos casos prácticos del trabajo diario del equipo de ARP en toda España.</p>
+  </div>
+</section>
+
+<div class="blog-body">
+  <div class="wrap">
+    <div id="blog-loading" class="blog-loading">Cargando casos…</div>
+    <div id="blog-grid" class="blog-grid" style="display:none"></div>
+    <div id="blog-empty" class="blog-empty" style="display:none">
+      <div class="ico">📋</div>
+      <h3>Próximamente</h3>
+      <p>Estamos preparando los primeros casos. Vuelve pronto o síguenos en redes para estar al día.</p>
+    </div>
+  </div>
+</div>
+
+<div id="site-footer"></div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<script>
+  document.write('<script src="' + SITE_PREFIX + '/js/firebase-init.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-config.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-header.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-footer.js"><\/script>');
+</script>
+<script>
+  if (SITE_PREFIX) {
+    document.querySelectorAll('a[href^="/"]').forEach(function(a){
+      a.setAttribute('href', SITE_PREFIX + a.getAttribute('href'));
+    });
+  }
+
+  function formatFecha(ts) {
+    var d = ts && ts.toDate ? ts.toDate() : new Date(ts);
+    return d.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+  }
+
+  function renderPosts(posts) {
+    var loading = document.getElementById('blog-loading');
+    var grid = document.getElementById('blog-grid');
+    var empty = document.getElementById('blog-empty');
+    loading.style.display = 'none';
+
+    if (!posts.length) {
+      empty.style.display = 'block';
+      return;
+    }
+
+    grid.style.display = 'grid';
+    grid.innerHTML = posts.map(function(p) {
+      var imgHtml = p.imagen
+        ? '<img class="post-card-img" src="' + p.imagen + '" alt="' + (p.titulo || '') + '" loading="lazy">'
+        : '';
+      var tagHtml = p.tag
+        ? '<span class="post-card-tag">' + p.tag + '</span>'
+        : '';
+      var postUrl = SITE_PREFIX + '/blog/post/?id=' + p.id;
+      return [
+        '<a href="' + postUrl + '" class="post-card">',
+          imgHtml,
+          '<div class="post-card-body">',
+            '<div class="post-card-meta">',
+              '<span class="post-card-date">' + formatFecha(p.fecha) + '</span>',
+              tagHtml,
+            '</div>',
+            '<h3>' + p.titulo + '</h3>',
+            '<p>' + (p.resumen || '') + '</p>',
+            '<div class="post-card-arrow">Leer caso →</div>',
+          '</div>',
+        '</a>'
+      ].join('');
+    }).join('');
+  }
+
+  // Espera a que Firebase esté listo y carga los posts publicados
+  function cargarPosts() {
+    db.collection('posts')
+      .where('publicado', '==', true)
+      .orderBy('fecha', 'desc')
+      .limit(20)
+      .get()
+      .then(function(snap) {
+        var posts = snap.docs.map(function(doc) {
+          return Object.assign({ id: doc.id }, doc.data());
+        });
+        renderPosts(posts);
+      })
+      .catch(function(err) {
+        console.warn('Error cargando posts:', err);
+        renderPosts([]);
+      });
+  }
+
+  // db puede no estar disponible aún si firebase-init carga async
+  var _initInterval = setInterval(function() {
+    if (typeof db !== 'undefined') {
+      clearInterval(_initInterval);
+      cargarPosts();
+    }
+  }, 50);
+</script>
+</body>
+</html>

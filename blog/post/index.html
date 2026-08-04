@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  window.SITE_PREFIX = location.hostname.endsWith('github.io') ? '/arp-web-preview' : '';
+  document.write('<link rel="stylesheet" href="' + SITE_PREFIX + '/css/tokens.css">');
+  document.write('<link rel="stylesheet" href="' + SITE_PREFIX + '/css/base.css">');
+</script>
+<title>Caso — ARP Prevención</title>
+<meta name="description" content="Caso práctico de inspección — ARP Prevención">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  .post-hero{padding:0;border-bottom:1px solid var(--border)}
+  .post-hero-img{width:100%;max-height:420px;object-fit:cover;display:block}
+  .post-hero-content{padding:36px 0 32px}
+  .post-breadcrumb{font-family:var(--font-mono);font-size:11px;color:var(--muted);display:flex;align-items:center;gap:8px;margin-bottom:20px}
+  .post-breadcrumb a{color:var(--muted);text-decoration:none}
+  .post-breadcrumb a:hover{color:var(--ink)}
+  .post-meta{display:flex;align-items:center;gap:14px;margin-bottom:16px}
+  .post-date{font-family:var(--font-mono);font-size:11px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+  .post-tag{font-family:var(--font-mono);font-size:10.5px;color:var(--rope);background:#f5ede0;border-radius:20px;padding:2px 10px;letter-spacing:.04em}
+  .post-title{font-size:42px;line-height:1.1;max-width:760px;margin-bottom:14px}
+  .post-resumen{font-size:18px;color:#4a463f;max-width:680px;line-height:1.6}
+
+  .post-body{padding:52px 0 88px}
+  .post-layout{display:grid;grid-template-columns:1fr 280px;gap:64px;align-items:start}
+  .post-content{font-size:16px;line-height:1.8;color:#2a2820;max-width:680px}
+  .post-content h2{font-size:24px;margin:36px 0 14px}
+  .post-content h3{font-size:20px;margin:28px 0 10px}
+  .post-content p{margin-bottom:18px}
+  .post-content ul,.post-content ol{margin:0 0 18px 22px}
+  .post-content li{margin-bottom:6px}
+  .post-content strong{color:var(--ink)}
+  .post-content img{border-radius:8px;margin:24px 0;max-width:100%}
+
+  .post-sidebar{position:sticky;top:32px;display:flex;flex-direction:column;gap:16px}
+  .post-sidebar-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:20px 22px}
+  .post-sidebar-card h4{font-size:13px;font-weight:600;margin-bottom:10px;text-transform:uppercase;letter-spacing:.04em;font-family:var(--font-mono);color:var(--muted)}
+  .post-sidebar-card p{font-size:13.5px;color:var(--muted);line-height:1.6}
+  .post-back{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);font-family:var(--font-mono);text-decoration:none;margin-bottom:8px}
+  .post-back:hover{color:var(--ink)}
+
+  .post-loading{padding:120px 0;text-align:center;font-family:var(--font-mono);font-size:12px;color:var(--muted);letter-spacing:.08em;text-transform:uppercase}
+  .post-notfound{padding:100px 0;text-align:center}
+  .post-notfound h2{font-size:28px;margin-bottom:12px}
+  .post-notfound p{color:var(--muted);margin-bottom:24px}
+
+  @media(max-width:900px){
+    .post-layout{grid-template-columns:1fr}
+    .post-sidebar{position:static}
+    .post-title{font-size:30px}
+  }
+</style>
+</head>
+<body>
+
+<div id="site-header" data-active="blog"></div>
+
+<div id="post-loading" class="post-loading">Cargando…</div>
+
+<div id="post-wrap" style="display:none">
+  <div class="post-hero">
+    <img id="post-img" class="post-hero-img" src="" alt="" style="display:none">
+    <div class="wrap post-hero-content">
+      <nav class="post-breadcrumb">
+        <a href="/blog/">Casos</a>
+        <span>›</span>
+        <span id="post-breadcrumb-title">—</span>
+      </nav>
+      <div class="post-meta">
+        <span id="post-date" class="post-date"></span>
+        <span id="post-tag" class="post-tag" style="display:none"></span>
+      </div>
+      <h1 id="post-title" class="post-title"></h1>
+      <p id="post-resumen" class="post-resumen"></p>
+    </div>
+  </div>
+
+  <div class="post-body">
+    <div class="wrap">
+      <div class="post-layout">
+        <div id="post-content" class="post-content"></div>
+        <aside class="post-sidebar">
+          <a href="/blog/" class="post-back">← Todos los casos</a>
+          <div class="post-sidebar-card">
+            <h4>Publicado por</h4>
+            <p>ARP Prevención — Entidad de Inspección · ISO 17020</p>
+          </div>
+          <div class="post-sidebar-card">
+            <h4>¿Tienes una instalación similar?</h4>
+            <p>Cuéntanos el tipo de instalación y te enviamos presupuesto sin compromiso.</p>
+          </div>
+          <a href="/contacto/" class="btn-primary" style="text-align:center">Solicitar inspección →</a>
+        </aside>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="post-notfound" class="post-notfound" style="display:none">
+  <div class="wrap">
+    <h2>Caso no encontrado</h2>
+    <p>El caso que buscas no existe o ha sido eliminado.</p>
+    <a href="/blog/" class="btn-primary">Ver todos los casos</a>
+  </div>
+</div>
+
+<div id="site-footer"></div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<script>
+  document.write('<script src="' + SITE_PREFIX + '/js/firebase-init.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-config.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-header.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-footer.js"><\/script>');
+</script>
+<script>
+  if (SITE_PREFIX) {
+    document.querySelectorAll('a[href^="/"]').forEach(function(a){
+      a.setAttribute('href', SITE_PREFIX + a.getAttribute('href'));
+    });
+  }
+
+  function formatFecha(ts) {
+    var d = ts && ts.toDate ? ts.toDate() : new Date(ts);
+    return d.toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+  }
+
+  function mostrarPost(data) {
+    document.getElementById('post-loading').style.display = 'none';
+    document.getElementById('post-wrap').style.display = 'block';
+
+    document.title = (data.titulo || 'Caso') + ' — ARP Prevención';
+    document.getElementById('post-title').textContent = data.titulo || '';
+    document.getElementById('post-breadcrumb-title').textContent = data.titulo || '';
+    document.getElementById('post-resumen').textContent = data.resumen || '';
+    document.getElementById('post-date').textContent = data.fecha ? formatFecha(data.fecha) : '';
+    document.getElementById('post-content').innerHTML = data.contenido || '';
+
+    if (data.tag) {
+      var tagEl = document.getElementById('post-tag');
+      tagEl.textContent = data.tag;
+      tagEl.style.display = '';
+    }
+    if (data.imagen) {
+      var imgEl = document.getElementById('post-img');
+      imgEl.src = data.imagen;
+      imgEl.alt = data.titulo || '';
+      imgEl.style.display = 'block';
+    }
+  }
+
+  function cargarPost() {
+    var params = new URLSearchParams(window.location.search);
+    var id = params.get('id');
+    if (!id) { mostrarNotFound(); return; }
+
+    db.collection('posts').doc(id).get()
+      .then(function(doc) {
+        if (!doc.exists || doc.data().publicado !== true) {
+          mostrarNotFound();
+          return;
+        }
+        mostrarPost(doc.data());
+      })
+      .catch(function() { mostrarNotFound(); });
+  }
+
+  function mostrarNotFound() {
+    document.getElementById('post-loading').style.display = 'none';
+    document.getElementById('post-notfound').style.display = 'block';
+  }
+
+  var _initInterval = setInterval(function() {
+    if (typeof db !== 'undefined') {
+      clearInterval(_initInterval);
+      cargarPost();
+    }
+  }, 50);
+</script>
+</body>
+</html>
