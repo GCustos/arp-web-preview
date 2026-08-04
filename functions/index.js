@@ -1,7 +1,11 @@
 const { onCall, HttpsError } = require("firebase-functions/v2/https");
 const { defineSecret } = require("firebase-functions/params");
+const admin = require("firebase-admin");
+
+admin.initializeApp();
 
 const bufferApiKey = defineSecret("BUFFER_API_KEY");
+const resendApiKey = defineSecret("RESEND_API_KEY");
 
 const CHANNELS = {
   linkedin: { id: "6a720a8999afb44349fe0523" },
@@ -92,4 +96,108 @@ exports.publishToSocial = onCall({ secrets: [bufferApiKey] }, async (request) =>
   );
 
   return Object.fromEntries(entries);
+});
+
+// Busca si el email de un lead web coincide con un contacto ya conocido
+// en el CRM interno (contactos/clientes de arp-inspecciones), para dar
+// contexto ("esto es Fulano, de Cliente X") en vez de tratarlo como desconocido.
+async function buscarContactoCRM(email) {
+  const db = admin.firestore();
+  const contactoSnap = await db.collection("contactos").where("email", "==", email).limit(1).get();
+  if (contactoSnap.empty) return null;
+
+  const contactoId = contactoSnap.docs[0].id;
+  const nombre = contactoSnap.docs[0].data().nombre || null;
+
+  const clientesSnap = await db.collection("clientes").get();
+  for (const doc of clientesSnap.docs) {
+    const vinculo = (doc.data().contactos || []).find((v) => v.contactoId === contactoId);
+    if (vinculo) {
+      return { nombre, cliente: doc.data().nombre, rol: vinculo.rol || null };
+    }
+  }
+  return { nombre, cliente: null, rol: null };
+}
+
+async function enviarEmailContacto(apiKey, destinatario, datos, esNuevo, crm) {
+  const asunto = (esNuevo ? "Nuevo contacto web" : "Nuevo mensaje (contacto repetido)") + " — " + datos.nombre;
+  const crmLine = crm
+    ? `<p><strong>Ya conocido en el CRM${crm.cliente ? " — " + crm.cliente + (crm.rol ? " (" + crm.rol + ")" : "" ) : ""}.</strong></p>`
+    : "";
+  const html = `
+    ${crmLine}
+    <p><strong>Nombre:</strong> ${datos.nombre}</p>
+    <p><strong>Empresa:</strong> ${datos.empresa || "—"}</p>
+    <p><strong>Email:</strong> ${datos.email}</p>
+    <p><strong>Teléfono:</strong> ${datos.telefono || "—"}</p>
+    <p><strong>Tipo de instalación:</strong> ${(datos.tipo || []).join(", ") || "—"}</p>
+    <p><strong>Mensaje:</strong><br>${(datos.mensaje || "").replace(/\n/g, "<br>")}</p>
+  `;
+
+  await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${apiKey}`,
+    },
+    body: JSON.stringify({
+      from: "ARP Web <onboarding@resend.dev>",
+      to: [destinatario],
+      subject: asunto,
+      html,
+    }),
+  });
+}
+
+exports.submitContact = onCall({ secrets: [resendApiKey] }, async (request) => {
+  const { nombre, empresa, email, telefono, tipo, mensaje } = request.data || {};
+  if (!nombre || !email || !mensaje) {
+    throw new HttpsError("invalid-argument", "Faltan campos obligatorios (nombre, email, mensaje).");
+  }
+
+  const emailLower = String(email).trim().toLowerCase();
+  const db = admin.firestore();
+  const docRef = db.collection("solicitudesWeb").doc(emailLower);
+  const existing = await docRef.get();
+  const esNuevo = !existing.exists;
+
+  const crm = await buscarContactoCRM(emailLower);
+
+  await docRef.set(
+    {
+      nombre,
+      empresa: empresa || "",
+      telefono: telefono || "",
+      email: emailLower,
+      tipoInstalacion: Array.isArray(tipo) ? tipo : [],
+      ultimoMensaje: mensaje,
+      ultimaVez: admin.firestore.FieldValue.serverTimestamp(),
+      primeraVez: esNuevo ? admin.firestore.FieldValue.serverTimestamp() : existing.data().primeraVez,
+      numContactos: admin.firestore.FieldValue.increment(1),
+      atendido: false,
+      clienteConocido: crm,
+    },
+    { merge: true }
+  );
+
+  await docRef.collection("mensajes").add({
+    mensaje,
+    telefono: telefono || "",
+    empresa: empresa || "",
+    tipoInstalacion: Array.isArray(tipo) ? tipo : [],
+    fecha: admin.firestore.FieldValue.serverTimestamp(),
+  });
+
+  const empresaConfig = await db.collection("config").doc("empresa").get();
+  const destinatario = empresaConfig.data()?.email || "info@arpprevencion.com";
+
+  await enviarEmailContacto(
+    resendApiKey.value(),
+    destinatario,
+    { nombre, empresa, email: emailLower, telefono, tipo, mensaje },
+    esNuevo,
+    crm
+  );
+
+  return { ok: true, esNuevo, clienteConocido: !!crm };
 });

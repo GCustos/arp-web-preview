@@ -130,8 +130,8 @@
           <p class="privacy-note">
             Al enviar este formulario, sus datos serán tratados por Adell Riesgos y Prevención S.L. con la finalidad de gestionar su solicitud. Puede ejercer sus derechos de acceso, rectificación y cancelación en la dirección indicada en nuestro <a href="/empresa/aviso-legal/">aviso legal</a>.
           </p>
-          <button type="submit" class="btn-submit">Enviar solicitud →</button>
-          <p class="form-note">⚠ Envío desactivado temporalmente — próximamente disponible</p>
+          <button type="submit" class="btn-submit" id="btnSubmit">Enviar solicitud →</button>
+          <p class="form-note" id="formStatus"></p>
         </form>
       </div>
 
@@ -176,6 +176,7 @@
 
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-functions.js"></script>
 <script>
   document.write('<script src="' + SITE_PREFIX + '/js/firebase-init.js"><\/script>');
   document.write('<script src="' + SITE_PREFIX + '/js/site-config.js"><\/script>');
@@ -188,10 +189,42 @@
       a.setAttribute('href', SITE_PREFIX + a.getAttribute('href'));
     });
   }
-  // Submit deshabilitado hasta Fase 6
+
   document.getElementById('contactForm').addEventListener('submit', function(e){
     e.preventDefault();
-    alert('Formulario de contacto próximamente disponible.\n\nMientras tanto, contacta por teléfono: 685 76 26 45');
+    var btn = document.getElementById('btnSubmit');
+    var status = document.getElementById('formStatus');
+    var form = document.getElementById('contactForm');
+
+    var nombre = document.getElementById('nombre').value.trim();
+    var email = document.getElementById('email').value.trim();
+    var mensaje = document.getElementById('mensaje').value.trim();
+    if (!nombre || !email || !mensaje) {
+      status.textContent = 'Rellena nombre, email y mensaje.';
+      return;
+    }
+
+    var tipo = Array.from(document.querySelectorAll('input[name="tipo"]:checked')).map(function(el){ return el.value; });
+
+    btn.disabled = true;
+    btn.textContent = 'Enviando…';
+    status.textContent = '';
+
+    var submitContact = firebase.functions().httpsCallable('submitContact');
+    submitContact({
+      nombre: nombre,
+      empresa: document.getElementById('empresa').value.trim(),
+      email: email,
+      telefono: document.getElementById('telefono').value.trim(),
+      tipo: tipo,
+      mensaje: mensaje
+    }).then(function(){
+      form.innerHTML = '<div class="response-badge"><div class="dot"></div><p>Solicitud enviada. Te responderemos en menos de 48 horas.</p></div>';
+    }).catch(function(err){
+      btn.disabled = false;
+      btn.textContent = 'Enviar solicitud →';
+      status.textContent = 'No se pudo enviar (' + (err.message || 'error') + '). Llámanos al 685 76 26 45.';
+    });
   });
 </script>
 </body>
