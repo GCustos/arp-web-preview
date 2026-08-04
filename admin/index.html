@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<script>
+  window.SITE_PREFIX = location.hostname.endsWith('github.io') ? '/arp-web-preview' : '';
+  document.write('<link rel="stylesheet" href="' + SITE_PREFIX + '/css/tokens.css">');
+  document.write('<link rel="stylesheet" href="' + SITE_PREFIX + '/css/base.css">');
+</script>
+<title>Admin blog — ARP Prevención</title>
+<style>
+  body{background:var(--paper,#faf7f0)}
+  .admin-wrap{max-width:720px;margin:0 auto;padding:40px 20px 80px}
+  .screen{display:none}
+  .screen.vis{display:block}
+  .login-box{max-width:320px;margin:80px auto;display:flex;flex-direction:column;gap:12px}
+  .login-box input{padding:12px 14px;border:1px solid var(--border);border-radius:8px;font-family:inherit;font-size:14px}
+  .login-box button{padding:12px;border:none;border-radius:8px;background:var(--gold-deep,#b8862f);color:#fff;font-weight:600;cursor:pointer}
+  .login-hint{font-size:13px;color:#b23}
+  .admin-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}
+  .admin-header h1{font-size:22px}
+  .admin-header .who{font-size:12px;color:var(--muted)}
+  .admin-header .who a{color:var(--muted);margin-left:10px}
+  .btn{padding:10px 16px;border-radius:8px;border:1px solid var(--border);background:#fff;font-family:inherit;font-size:13px;font-weight:600;cursor:pointer}
+  .btn-primary{background:var(--gold-deep,#b8862f);color:#fff;border:none}
+  .btn-danger{color:#b23;border-color:#e9b7b7}
+  .post-row{display:flex;justify-content:space-between;align-items:center;padding:14px 16px;border:1px solid var(--border);border-radius:10px;margin-bottom:10px;background:#fff}
+  .post-row .t{font-weight:600;font-size:14px}
+  .post-row .meta{font-size:12px;color:var(--muted);margin-top:2px}
+  .badge{font-size:10px;font-weight:700;padding:2px 8px;border-radius:20px;text-transform:uppercase;letter-spacing:.04em}
+  .badge-pub{background:#e6f4ea;color:#1e7d3a}
+  .badge-draft{background:#f0eee8;color:#7a7568}
+  .row-actions{display:flex;gap:8px}
+  .field{margin-bottom:16px}
+  .field label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:5px}
+  .field input[type=text],.field textarea{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-family:inherit;font-size:14px}
+  .field textarea{resize:vertical}
+  .field .hint{font-size:11px;color:var(--muted);margin-top:4px}
+  #form-content{min-height:220px;font-family:var(--font-mono,monospace);font-size:13px}
+  #form-preview{max-width:260px;border-radius:8px;margin-top:8px;display:none}
+  .form-actions{display:flex;gap:10px;margin-top:24px}
+  .publish-result{margin-top:16px;padding:12px 14px;border-radius:8px;font-size:13px}
+  .publish-result.ok{background:#e6f4ea;color:#1e7d3a}
+  .publish-result.err{background:#fbeaea;color:#a33}
+  .publish-result ul{margin:6px 0 0 18px}
+</style>
+</head>
+<body>
+
+<div class="admin-wrap">
+
+  <div class="screen vis" id="screen-login">
+    <div class="login-box">
+      <h1 style="text-align:center;font-size:18px">Admin blog ARP</h1>
+      <input type="email" id="login-email" placeholder="correo@ejemplo.com" autocomplete="email">
+      <input type="password" id="login-pass" placeholder="Contraseña" autocomplete="current-password">
+      <button class="btn-primary" onclick="doLogin()">Entrar</button>
+      <div class="login-hint" id="login-hint" style="display:none"></div>
+    </div>
+  </div>
+
+  <div class="screen" id="screen-list">
+    <div class="admin-header">
+      <h1>Casos / blog</h1>
+      <div class="who"><span id="who-email"></span><a href="#" onclick="doLogout();return false">Cerrar sesión</a></div>
+    </div>
+    <button class="btn btn-primary" style="margin-bottom:20px" onclick="openForm(null)">+ Nuevo caso</button>
+    <div id="post-list"></div>
+  </div>
+
+  <div class="screen" id="screen-form">
+    <div class="admin-header">
+      <h1 id="form-title-h1">Nuevo caso</h1>
+      <button class="btn" onclick="closeForm()">← Volver</button>
+    </div>
+
+    <div class="field">
+      <label>Título</label>
+      <input type="text" id="form-titulo">
+    </div>
+    <div class="field">
+      <label>Resumen (aparece en la lista y en redes sociales)</label>
+      <textarea id="form-resumen" rows="2"></textarea>
+    </div>
+    <div class="field">
+      <label>Tag</label>
+      <input type="text" id="form-tag" placeholder="Ej: Parques de aventura">
+    </div>
+    <div class="field">
+      <label>Foto</label>
+      <input type="file" id="form-imagen-file" accept="image/*">
+      <img id="form-preview">
+    </div>
+    <div class="field">
+      <label>Contenido (HTML)</label>
+      <textarea id="form-content" rows="12"></textarea>
+      <div class="hint">Etiquetas simples: &lt;p&gt;, &lt;h2&gt;, &lt;h3&gt;, &lt;ul&gt;/&lt;li&gt;, &lt;strong&gt;, &lt;img&gt;</div>
+    </div>
+
+    <div class="form-actions">
+      <button class="btn" onclick="savePost(false)">Guardar borrador</button>
+      <button class="btn btn-primary" onclick="savePost(true)">Publicar (web + redes)</button>
+      <button class="btn btn-danger" id="btn-delete" style="display:none" onclick="deletePost()">Eliminar</button>
+    </div>
+    <div id="publish-result"></div>
+  </div>
+
+</div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-storage.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-functions.js"></script>
+<script>
+  document.write('<script src="' + SITE_PREFIX + '/js/firebase-init.js"><\/script>');
+</script>
+<script>
+  var ALLOWED_EDITORS = [
+    'guimarcon.arp@gmail.com',
+    'josmorvel.arp@gmail.com',
+    'natcrualb.arp@gmail.com'
+  ];
+
+  var auth, storage, functions;
+  var currentPostId = null;
+  var currentImagenUrl = null;
+
+  function show(id) {
+    document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('vis'); });
+    document.getElementById(id).classList.add('vis');
+  }
+
+  window.doLogin = function() {
+    var email = document.getElementById('login-email').value.trim();
+    var pass = document.getElementById('login-pass').value;
+    var hint = document.getElementById('login-hint');
+    hint.style.display = 'none';
+    if (!email || !pass) return;
+    auth.signInWithEmailAndPassword(email, pass).catch(function(e) {
+      hint.textContent = 'Email o contraseña incorrectos.';
+      hint.style.display = 'block';
+    });
+  };
+
+  window.doLogout = function() {
+    auth.signOut();
+  };
+
+  function initAdmin() {
+    auth = firebase.auth();
+    storage = firebase.storage();
+    functions = firebase.functions();
+
+    auth.onAuthStateChanged(function(user) {
+      if (!user || ALLOWED_EDITORS.indexOf(user.email) === -1) {
+        if (user) auth.signOut();
+        show('screen-login');
+        return;
+      }
+      document.getElementById('who-email').textContent = user.email;
+      show('screen-list');
+      loadPosts();
+    });
+  }
+
+  var _initInterval = setInterval(function() {
+    if (typeof db !== 'undefined') {
+      clearInterval(_initInterval);
+      initAdmin();
+    }
+  }, 50);
+
+  function formatFecha(ts) {
+    if (!ts) return 'sin fecha';
+    var d = ts.toDate ? ts.toDate() : new Date(ts);
+    return d.toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' });
+  }
+
+  function loadPosts() {
+    db.collection('posts').orderBy('fecha', 'desc').limit(50).get().then(function(snap) {
+      var list = document.getElementById('post-list');
+      if (snap.empty) {
+        list.innerHTML = '<p style="color:var(--muted);font-size:14px">Todavía no hay casos.</p>';
+        return;
+      }
+      list.innerHTML = snap.docs.map(function(doc) {
+        var p = doc.data();
+        var badge = p.publicado
+          ? '<span class="badge badge-pub">Publicado</span>'
+          : '<span class="badge badge-draft">Borrador</span>';
+        return [
+          '<div class="post-row">',
+            '<div>',
+              '<div class="t">' + (p.titulo || '(sin título)') + '</div>',
+              '<div class="meta">' + formatFecha(p.fecha) + ' &middot; ' + badge + '</div>',
+            '</div>',
+            '<div class="row-actions">',
+              '<button class="btn" onclick="openForm(\'' + doc.id + '\')">Editar</button>',
+            '</div>',
+          '</div>'
+        ].join('');
+      }).join('');
+    });
+  }
+
+  window.openForm = function(postId) {
+    currentPostId = postId;
+    currentImagenUrl = null;
+    document.getElementById('form-titulo').value = '';
+    document.getElementById('form-resumen').value = '';
+    document.getElementById('form-tag').value = '';
+    document.getElementById('form-content').value = '';
+    document.getElementById('form-imagen-file').value = '';
+    document.getElementById('form-preview').style.display = 'none';
+    document.getElementById('publish-result').innerHTML = '';
+    document.getElementById('btn-delete').style.display = postId ? 'inline-block' : 'none';
+
+    if (!postId) {
+      document.getElementById('form-title-h1').textContent = 'Nuevo caso';
+      show('screen-form');
+      return;
+    }
+
+    document.getElementById('form-title-h1').textContent = 'Editar caso';
+    db.collection('posts').doc(postId).get().then(function(doc) {
+      var p = doc.data();
+      document.getElementById('form-titulo').value = p.titulo || '';
+      document.getElementById('form-resumen').value = p.resumen || '';
+      document.getElementById('form-tag').value = p.tag || '';
+      document.getElementById('form-content').value = p.contenido || '';
+      if (p.imagen) {
+        currentImagenUrl = p.imagen;
+        var img = document.getElementById('form-preview');
+        img.src = p.imagen;
+        img.style.display = 'block';
+      }
+      show('screen-form');
+    });
+  };
+
+  window.closeForm = function() {
+    show('screen-list');
+    loadPosts();
+  };
+
+  function subirImagenSiHace(postId) {
+    var file = document.getElementById('form-imagen-file').files[0];
+    if (!file) return Promise.resolve(currentImagenUrl);
+    var ref = storage.ref('posts/' + postId + '/imagen_' + Date.now());
+    return ref.put(file).then(function() { return ref.getDownloadURL(); });
+  }
+
+  window.savePost = function(publicar) {
+    var docRef = currentPostId ? db.collection('posts').doc(currentPostId) : db.collection('posts').doc();
+    var postId = docRef.id;
+    var esNuevo = !currentPostId;
+
+    var data = {
+      titulo: document.getElementById('form-titulo').value.trim(),
+      resumen: document.getElementById('form-resumen').value.trim(),
+      tag: document.getElementById('form-tag').value.trim(),
+      contenido: document.getElementById('form-content').value,
+      publicado: publicar
+    };
+
+    if (!data.titulo) { alert('Falta el título.'); return; }
+
+    subirImagenSiHace(postId).then(function(imagenUrl) {
+      if (imagenUrl) data.imagen = imagenUrl;
+      if (esNuevo) data.fecha = firebase.firestore.FieldValue.serverTimestamp();
+
+      return docRef.set(data, { merge: true }).then(function() {
+        currentPostId = postId;
+        if (!publicar) { closeForm(); return; }
+        return publicarEnRedes(data.titulo, data.resumen, imagenUrl);
+      });
+    }).catch(function(e) {
+      alert('Error guardando: ' + e.message);
+    });
+  };
+
+  function publicarEnRedes(titulo, resumen, imagenUrl) {
+    var texto = titulo + (resumen ? '\n\n' + resumen : '');
+    var call = functions.httpsCallable('publishToSocial');
+    var box = document.getElementById('publish-result');
+    box.className = 'publish-result';
+    box.textContent = 'Publicando en LinkedIn y Facebook…';
+
+    return call({ text: texto, imageUrl: imagenUrl || null }).then(function(res) {
+      var lines = Object.keys(res.data).map(function(net) {
+        var r = res.data[net];
+        return '<li>' + net + ': ' + (r.ok ? 'OK' : 'Error — ' + r.error) + '</li>';
+      });
+      var allOk = Object.keys(res.data).every(function(net) { return res.data[net].ok; });
+      box.className = 'publish-result ' + (allOk ? 'ok' : 'err');
+      box.innerHTML = 'Post guardado en la web. Redes sociales:<ul>' + lines.join('') + '</ul>';
+    }).catch(function(e) {
+      box.className = 'publish-result err';
+      box.textContent = 'El post se guardó en la web, pero falló la publicación en redes: ' + e.message;
+    });
+  }
+
+  window.deletePost = function() {
+    if (!currentPostId) return;
+    if (!confirm('¿Eliminar este caso definitivamente?')) return;
+    db.collection('posts').doc(currentPostId).delete().then(closeForm);
+  };
+
+  document.getElementById('form-imagen-file').addEventListener('change', function(e) {
+    var file = e.target.files[0];
+    if (!file) return;
+    var img = document.getElementById('form-preview');
+    img.src = URL.createObjectURL(file);
+    img.style.display = 'block';
+  });
+</script>
+</body>
+</html>

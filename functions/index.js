@@ -52,9 +52,15 @@ async function publishToChannel(channelId, text, imageUrl, apiKey) {
   return { ok: true, postId: result?.post?.id };
 }
 
+const ALLOWED_PUBLISHERS = [
+  "guimarcon.arp@gmail.com",
+  "josmorvel.arp@gmail.com",
+  "natcrualb.arp@gmail.com",
+];
+
 exports.publishToSocial = onCall({ secrets: [bufferApiKey] }, async (request) => {
-  if (!request.auth) {
-    throw new HttpsError("unauthenticated", "Hay que iniciar sesión para publicar.");
+  if (!request.auth || !ALLOWED_PUBLISHERS.includes(request.auth.token.email)) {
+    throw new HttpsError("permission-denied", "No tienes permiso para publicar.");
   }
 
   const { text, imageUrl } = request.data || {};
