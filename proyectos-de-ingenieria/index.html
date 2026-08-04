@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  window.SITE_PREFIX = location.hostname.endsWith('github.io') ? '/arp-web-preview' : '';
+  document.write('<link rel="stylesheet" href="' + SITE_PREFIX + '/css/tokens.css">');
+  document.write('<link rel="stylesheet" href="' + SITE_PREFIX + '/css/base.css">');
+</script>
+<title>Proyectos de Ingeniería — ARP Prevención</title>
+<meta name="description" content="Redacción de proyectos, cálculo de estructuras y legalización de actividades industriales y comerciales. Especialistas en industria y obra civil.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  .ing-hero{position:relative;overflow:hidden;min-height:380px;display:flex;align-items:flex-end}
+  .ing-hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
+  .ing-hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(27,27,24,.82) 0%,rgba(27,27,24,.30) 60%,transparent 100%)}
+  .ing-hero-content{position:relative;z-index:1;padding:56px 0 48px;color:#fff}
+  .ing-hero-content .eyebrow{font-family:var(--font-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:10px;margin-bottom:16px}
+  .ing-hero-content .eyebrow::before{content:'';width:22px;height:1px;background:var(--gold)}
+  .ing-hero-content h1{font-size:44px;line-height:1.08;max-width:680px;margin-bottom:18px}
+  .ing-hero-content p.lead{font-size:17px;color:rgba(255,255,255,.82);max-width:600px;line-height:1.6}
+
+  /* Fallback cuando no hay foto */
+  .ing-hero.no-photo{background:var(--ink);min-height:auto}
+  .ing-hero.no-photo .ing-hero-content{padding:64px 0 56px}
+
+  .ing-services{padding:64px 0}
+  .ing-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;background:var(--border);border:1px solid var(--border);margin-top:40px}
+  .ing-card{background:var(--parchment);padding:36px 32px;display:flex;flex-direction:column;gap:0}
+  .ing-card-img{width:100%;height:180px;object-fit:cover;border-radius:4px;margin-bottom:22px;display:block}
+  .ing-card-img-placeholder{width:100%;height:180px;background:var(--border);border-radius:4px;margin-bottom:22px;display:flex;align-items:center;justify-content:center}
+  .ing-card-img-placeholder span{font-family:var(--font-mono);font-size:11px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+  .ing-card .ico{font-size:28px;margin-bottom:14px;line-height:1}
+  .ing-card h3{font-size:20px;margin-bottom:10px}
+  .ing-card p{font-size:14.5px;color:var(--muted);line-height:1.65}
+  .ing-card ul{margin:10px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:5px}
+  .ing-card ul li{font-size:13.5px;color:var(--muted);padding-left:14px;position:relative}
+  .ing-card ul li::before{content:'→';position:absolute;left:0;color:var(--gold-deep);font-size:11px;top:2px}
+
+  .ing-cta{background:var(--ink);color:var(--parchment);padding:56px 0}
+  .ing-cta-inner{display:flex;gap:60px;align-items:center;flex-wrap:wrap}
+  .ing-cta h2{font-size:30px;color:#fff;flex:1;min-width:280px;margin-bottom:0}
+  .ing-cta .btn-primary{flex-shrink:0}
+
+  @media(max-width:860px){
+    .ing-grid{grid-template-columns:1fr}
+    .ing-hero-content h1{font-size:32px}
+    .ing-cta-inner{flex-direction:column;gap:28px}
+    .ing-cta h2{font-size:24px}
+  }
+</style>
+</head>
+<body>
+
+<div id="site-header" data-active="ingenieria"></div>
+
+<section class="ing-hero" id="ing-hero">
+  <!-- Foto: img/ingenieria/hero.jpg — estructura metálica, obra civil, o instalación industrial -->
+  <!-- Si no hay foto, añadir clase "no-photo" al section y eliminar el img y el overlay -->
+  <img class="ing-hero-img" id="ing-hero-img" src="" alt="Proyectos de ingeniería ARP Prevención" loading="eager">
+  <div class="ing-hero-overlay"></div>
+  <div class="wrap ing-hero-content">
+    <div class="eyebrow">Ingeniería técnica</div>
+    <h1>Especialistas en industria y obra civil</h1>
+    <p class="lead">Redactamos y firmamos proyectos, calculamos estructuras y legalizamos actividades industriales y comerciales. Un equipo técnico completo para todo el ciclo de vida de vuestra instalación.</p>
+  </div>
+</section>
+
+<div class="ing-services">
+  <div class="wrap">
+    <div style="display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:12px">
+      <h2 style="font-size:28px">¿Qué necesitáis?</h2>
+      <p style="font-size:14px;color:var(--muted)">Cuatro áreas de servicio. Una sola empresa técnica.</p>
+    </div>
+
+    <div class="ing-grid">
+
+      <div class="ing-card">
+        <!-- Foto: img/ingenieria/proyectos.jpg — mesa de trabajo, planos, proyecto técnico -->
+        <img class="ing-card-img" id="img-proyectos" src="" alt="Redacción de proyectos técnicos" loading="lazy">
+        <div class="ico">📐</div>
+        <h3>Redacción y firma de proyectos</h3>
+        <p>Elaboramos y firmamos proyectos técnicos para cualquier tipo de obra o instalación: construcción, reforma, conservación, demolición, instalación o montaje.</p>
+        <ul>
+          <li>Edificación residencial e industrial</li>
+          <li>Instalaciones eléctricas e industriales</li>
+          <li>Estructuras temporales y eventuales</li>
+          <li>Dirección técnica y gestión de ejecución</li>
+        </ul>
+      </div>
+
+      <div class="ing-card">
+        <!-- Foto: img/ingenieria/estructuras.jpg — estructura metálica o de hormigón en obra -->
+        <img class="ing-card-img" id="img-estructuras" src="" alt="Cálculo de estructuras" loading="lazy">
+        <div class="ico">🏗️</div>
+        <h3>Cálculo de estructuras e instalaciones</h3>
+        <p>Dimensionamos y verificamos estructuras e instalaciones de todo tipo, garantizando la resistencia y seguridad conforme a la normativa vigente.</p>
+        <ul>
+          <li>Estructuras metálicas</li>
+          <li>Estructuras de hormigón</li>
+          <li>Instalaciones eléctricas</li>
+          <li>Grandes estructuras civiles</li>
+        </ul>
+      </div>
+
+      <div class="ing-card">
+        <!-- Foto: img/ingenieria/legalizacion.jpg — local comercial, nave industrial, o similar -->
+        <img class="ing-card-img" id="img-legalizacion" src="" alt="Legalización de actividades" loading="lazy">
+        <div class="ico">📋</div>
+        <h3>Legalización de actividades</h3>
+        <p>Tramitamos las licencias y autorizaciones necesarias para que tu actividad comercial o industrial opere en regla con la administración y la normativa sectorial.</p>
+        <ul>
+          <li>Actividades comerciales: tiendas, hostelería, retail</li>
+          <li>Actividades industriales: naves, aparcamientos</li>
+          <li>Instalaciones de eventos y estructuras eventuales</li>
+        </ul>
+      </div>
+
+      <div class="ing-card">
+        <!-- Foto: img/ingenieria/eventos.jpg — carpa de evento o instalación temporal -->
+        <img class="ing-card-img" id="img-eventos" src="" alt="Instalaciones para eventos" loading="lazy">
+        <div class="ico">⛺</div>
+        <h3>Instalaciones para eventos</h3>
+        <p>Proyectamos, calculamos y legalizamos las instalaciones técnicas necesarias para eventos temporales: eléctricas, estructuras desmontables, carpas y lonas de gran formato.</p>
+        <ul>
+          <li>Instalaciones eléctricas temporales</li>
+          <li>Carpas y estructuras desmontables</li>
+          <li>Infraestructura logística para eventos</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<div class="ing-cta">
+  <div class="wrap ing-cta-inner">
+    <h2>¿Tenéis un proyecto que necesita firma técnica?</h2>
+    <a href="/contacto/" class="btn-primary">Hablar con el equipo →</a>
+  </div>
+</div>
+
+<div id="site-footer"></div>
+
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+<script>
+  document.write('<script src="' + SITE_PREFIX + '/js/firebase-init.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-config.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-header.js"><\/script>');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-footer.js"><\/script>');
+</script>
+<script>
+  // Aplica SITE_PREFIX a todos los href relativos
+  if (SITE_PREFIX) {
+    document.querySelectorAll('a[href^="/"]').forEach(function(a){
+      a.setAttribute('href', SITE_PREFIX + a.getAttribute('href'));
+    });
+  }
+
+  // Carga las fotos si existen; si no, muestra un placeholder discreto
+  var photos = {
+    'ing-hero-img':  SITE_PREFIX + '/img/ingenieria/hero.jpg',
+    'img-proyectos': SITE_PREFIX + '/img/ingenieria/proyectos.jpg',
+    'img-estructuras':SITE_PREFIX + '/img/ingenieria/estructuras.jpg',
+    'img-legalizacion':SITE_PREFIX + '/img/ingenieria/legalizacion.jpg',
+    'img-eventos':   SITE_PREFIX + '/img/ingenieria/eventos.jpg'
+  };
+  Object.keys(photos).forEach(function(id){
+    var el = document.getElementById(id);
+    if (!el) return;
+    var src = photos[id];
+    var test = new Image();
+    test.onload = function(){ el.src = src; };
+    test.onerror = function(){
+      // Si no hay foto, oculta el elemento y activa fallback
+      if (id === 'ing-hero-img') {
+        document.getElementById('ing-hero').classList.add('no-photo');
+        el.style.display = 'none';
+        document.querySelector('.ing-hero-overlay').style.display = 'none';
+      } else {
+        var placeholder = document.createElement('div');
+        placeholder.className = 'ing-card-img-placeholder';
+        placeholder.innerHTML = '<span>Foto próximamente</span>';
+        el.parentNode.insertBefore(placeholder, el);
+        el.style.display = 'none';
+      }
+    };
+    test.src = src;
+  });
+</script>
+</body>
+</html>
