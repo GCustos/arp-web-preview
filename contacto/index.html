@@ -56,10 +56,17 @@
   .response-badge .dot{width:8px;height:8px;border-radius:50%;background:#4a7c59;flex-shrink:0}
   .response-badge p{font-size:13px;color:#4a7c59;font-weight:500}
 
+  .tipo-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:2px}
+  .tipo-chk{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--ink);cursor:pointer;padding:8px 10px;border:1.5px solid var(--border);border-radius:8px;transition:.15s;font-family:var(--font-display);font-weight:500}
+  .tipo-chk:hover{border-color:var(--gold-deep)}
+  .tipo-chk input[type=checkbox]{accent-color:var(--gold-deep);width:15px;height:15px;flex-shrink:0;cursor:pointer}
+  .tipo-chk:has(input:checked){border-color:var(--gold-deep);background:#fdf8ee}
+
   @media(max-width:960px){
     .contact-grid{grid-template-columns:1fr;gap:40px}
     .page-hero h1{font-size:32px}
     .form-row{grid-template-columns:1fr}
+    .tipo-grid{grid-template-columns:1fr}
   }
 </style>
 </head>
@@ -104,23 +111,17 @@
             </div>
           </div>
           <div class="field">
-            <label for="tipo">Tipo de instalación</label>
-            <select id="tipo" name="tipo">
-              <option value="">Selecciona una opción</option>
-              <optgroup label="Acreditadas ENAC">
-                <option>Parque de aventura</option>
-                <option>Rocódromo / estructura de escalada</option>
-                <option>Hinchables</option>
-                <option>Parque infantil / área de juego</option>
-                <option>Instalación deportiva</option>
-              </optgroup>
-              <optgroup label="Otras">
-                <option>Vía ferrata</option>
-                <option>Camas elásticas / trampoline park</option>
-                <option>Juego especial / otra instalación</option>
-                <option>Ingeniería / proyecto técnico</option>
-              </optgroup>
-            </select>
+            <label>Tipo de instalación <span style="font-weight:400;color:var(--muted)">(puedes marcar varias)</span></label>
+            <div class="tipo-grid">
+              <label class="tipo-chk"><input type="checkbox" name="tipo" value="paa"> Parque de aventura</label>
+              <label class="tipo-chk"><input type="checkbox" name="tipo" value="roco"> Rocódromo / escalada</label>
+              <label class="tipo-chk"><input type="checkbox" name="tipo" value="hinchable"> Hinchables</label>
+              <label class="tipo-chk"><input type="checkbox" name="tipo" value="infantil"> Parque infantil / área de juego</label>
+              <label class="tipo-chk"><input type="checkbox" name="tipo" value="deportivo"> Instalación deportiva</label>
+              <label class="tipo-chk"><input type="checkbox" name="tipo" value="ferrata"> Vía ferrata</label>
+              <label class="tipo-chk"><input type="checkbox" name="tipo" value="trampoline"> Trampoline park / camas elásticas</label>
+              <label class="tipo-chk"><input type="checkbox" name="tipo" value="otra"> Otro tipo de instalación</label>
+            </div>
           </div>
           <div class="field">
             <label for="mensaje">Mensaje *</label>
