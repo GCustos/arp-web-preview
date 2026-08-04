@@ -45,6 +45,10 @@
   .trust-row span b{color:var(--gold);font-weight:600}
 
   .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  .svc-card-link{display:block;text-decoration:none;color:inherit;height:100%}
+  .svc-card-link .svc-card{transition:transform .15s,box-shadow .15s,border-color .15s;height:100%}
+  .svc-card-link:hover .svc-card{border-color:var(--gold-deep);transform:translateY(-3px);box-shadow:0 14px 30px rgba(27,27,24,.07)}
+  .svc-arrow{display:inline-block;margin-top:14px;font-size:13px;color:var(--gold-deep);font-weight:600;font-family:var(--font-display)}
 
 @media(max-width:960px){
     .hero-grid{grid-template-columns:1fr}
@@ -97,21 +101,30 @@
       <h2>Inspección y certificación, instalación por instalación</h2>
     </div>
     <div class="services-grid">
-      <div class="svc-card">
-        <div class="svc-icon">🌲</div>
-        <h3>Parques de aventura</h3>
-        <p>Circuitos en altura verificados conforme a UNE-EN 15567.</p>
-      </div>
-      <div class="svc-card">
-        <div class="svc-icon">🧗</div>
-        <h3>Rocódromos</h3>
-        <p>Estructuras artificiales de escalada, presas y sistemas de seguridad.</p>
-      </div>
-      <div class="svc-card">
-        <div class="svc-icon">🎈</div>
-        <h3>Hinchables</h3>
-        <p>Estructuras de juego hinchable inspeccionadas en cada montaje.</p>
-      </div>
+      <a href="/inspeccion-y-certificacion/acreditadas/parques-de-aventura/" class="svc-card-link">
+        <div class="svc-card">
+          <div class="svc-icon">🌲</div>
+          <h3>Parques de aventura</h3>
+          <p>Circuitos en altura verificados conforme a UNE-EN 15567.</p>
+          <div class="svc-arrow">Ver servicio →</div>
+        </div>
+      </a>
+      <a href="/inspeccion-y-certificacion/acreditadas/estructuras-artificiales-de-escalada/" class="svc-card-link">
+        <div class="svc-card">
+          <div class="svc-icon">🧗</div>
+          <h3>Rocódromos</h3>
+          <p>Estructuras artificiales de escalada, presas y sistemas de seguridad.</p>
+          <div class="svc-arrow">Ver servicio →</div>
+        </div>
+      </a>
+      <a href="/inspeccion-y-certificacion/acreditadas/estructuras-de-juego-hinchables/" class="svc-card-link">
+        <div class="svc-card">
+          <div class="svc-icon">🎈</div>
+          <h3>Hinchables</h3>
+          <p>Estructuras de juego hinchable inspeccionadas en cada montaje.</p>
+          <div class="svc-arrow">Ver servicio →</div>
+        </div>
+      </a>
     </div>
   </div>
 </section>
