@@ -9,6 +9,7 @@
 const SITE_NAV = [
   { href: "/inspeccion-y-certificacion/", label: "Inspección y Certificación", key: "servicios" },
   { href: "/proyectos-de-ingenieria/", label: "Ingeniería", key: "ingenieria" },
+  { href: "/tarifas/", label: "Tarifas", key: "tarifas" },
   { href: "/mapa/", label: "Mapa de instalaciones", key: "mapa" },
   { href: "/blog/", label: "Casos", key: "blog" },
   { href: "/empresa/", label: "Empresa", key: "empresa" }
