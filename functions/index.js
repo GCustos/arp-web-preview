@@ -4,8 +4,16 @@ const { defineSecret } = require("firebase-functions/params");
 const bufferApiKey = defineSecret("BUFFER_API_KEY");
 
 const CHANNELS = {
-  linkedin: "6a720a8999afb44349fe0523",
-  facebook: "6a7211ba99afb44349fe66c5",
+  linkedin: { id: "6a720a8999afb44349fe0523" },
+  facebook: {
+    id: "6a7211ba99afb44349fe66c5",
+    metadata: { facebook: { type: "post" } },
+  },
+  instagram: {
+    id: "6a71dc9599afb44349fcd1a9",
+    metadata: { instagram: { type: "post", shouldShareToFeed: true } },
+    requiresImage: true,
+  },
 };
 
 const CREATE_POST_MUTATION = `
@@ -21,15 +29,22 @@ const CREATE_POST_MUTATION = `
   }
 `;
 
-async function publishToChannel(channelId, text, imageUrl, apiKey) {
+async function publishToChannel(channel, text, imageUrl, apiKey) {
+  if (channel.requiresImage && !imageUrl) {
+    return { ok: false, error: "Este canal requiere foto." };
+  }
+
   const input = {
     text,
-    channelId,
+    channelId: channel.id,
     schedulingType: "automatic",
     mode: "shareNow",
   };
   if (imageUrl) {
     input.assets = [{ image: { url: imageUrl } }];
+  }
+  if (channel.metadata) {
+    input.metadata = channel.metadata;
   }
 
   const response = await fetch("https://api.buffer.com", {
@@ -70,9 +85,9 @@ exports.publishToSocial = onCall({ secrets: [bufferApiKey] }, async (request) =>
 
   const apiKey = bufferApiKey.value();
   const entries = await Promise.all(
-    Object.entries(CHANNELS).map(async ([network, channelId]) => [
+    Object.entries(CHANNELS).map(async ([network, channel]) => [
       network,
-      await publishToChannel(channelId, text, imageUrl, apiKey),
+      await publishToChannel(channel, text, imageUrl, apiKey),
     ])
   );
 
