@@ -30,13 +30,31 @@ function renderSiteHeader(){
             <div class="brand-sub">Entidad de Inspección · ISO 17020</div>
           </div>
         </a>
-        <nav class="site-nav">
+        <nav class="site-nav" id="siteNav">
           ${SITE_NAV.map(item => `<a href="${item.href}" class="${item.key===active?'active':''}">${item.label}</a>`).join('')}
         </nav>
-        <a href="/contacto/" class="cta-header">Presupuesto gratuito</a>
+        <div class="navbar-right">
+          <a href="/contacto/" class="cta-header">Presupuesto gratuito</a>
+          <button type="button" class="nav-toggle" id="navToggle" aria-label="Abrir menú" aria-expanded="false">
+            <span></span><span></span><span></span>
+          </button>
+        </div>
       </div>
     </header>
   `;
+
+  const toggle = document.getElementById('navToggle');
+  const nav = document.getElementById('siteNav');
+  toggle.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    toggle.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => {
+    nav.classList.remove('open');
+    toggle.classList.remove('open');
+    toggle.setAttribute('aria-expanded', 'false');
+  }));
 }
 
 renderSiteHeader();
