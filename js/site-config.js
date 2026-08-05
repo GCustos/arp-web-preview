@@ -72,10 +72,11 @@ function applyConfig(empresa){
     else el.style.display = 'none';
   });
 
-  // Sello ENAC — visible si algún alcance está activo en enacAlcances
+  // Sello ENAC — oculto por defecto en CSS (base.css). Solo se revela aquí
+  // si algún alcance está activo en enacAlcances — nunca al revés.
   const enacActivo = Object.values(empresa.enacAlcances || {}).some(Boolean);
   document.querySelectorAll('[data-flag="sello"]').forEach(el => {
-    el.style.display = enacActivo ? '' : 'none';
+    el.style.display = enacActivo ? 'flex' : 'none';
   });
 
   // Flags genéricos: oculto solo si el campo homónimo es exactamente false

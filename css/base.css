@@ -93,7 +93,7 @@ footer.site li a:hover{color:var(--gold)}
 /* Hero con foto */
 .svc-page-hero.has-photo{padding:72px 0 64px;border-bottom:none}
 .svc-page-hero-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center}
-.svc-page-hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(27,27,24,.82) 0%,rgba(27,27,24,.50) 60%,rgba(27,27,24,.30) 100%)}
+.svc-page-hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(27,27,24,.82) 0%,rgba(27,27,24,.60) 60%,rgba(27,27,24,.60) 100%)}
 .svc-page-hero.has-photo .eyebrow{color:var(--gold)}
 .svc-page-hero.has-photo .eyebrow::before{background:var(--gold)}
 .svc-page-hero.has-photo h1,.svc-page-hero.has-photo p.lead{color:#fff}
@@ -123,6 +123,9 @@ footer.site li a:hover{color:var(--gold)}
 .svc-sidebar-card li{padding:4px 0;border-bottom:1px solid var(--border)}
 .svc-sidebar-card li:last-child{border-bottom:none}
 .svc-enac-badge{display:flex;align-items:center;gap:8px;background:#eef1ea;border:1px solid #c8d4bf;border-radius:9px;padding:10px 14px;font-size:12.5px;font-family:var(--font-mono);color:var(--pine);letter-spacing:.04em}
+/* Oculto por defecto — solo site-config.js lo revela si enacAlcances tiene algo activo.
+   Así un crawler, red social, o una carga lenta de Firestore nunca lo ven visible por error. */
+[data-flag="sello"]{display:none}
 .svc-enac-badge::before{content:'✓';font-weight:700;font-size:14px}
 .svc-no-badge{display:flex;align-items:center;gap:8px;background:#f5f2e8;border:1px solid var(--border);border-radius:9px;padding:10px 14px;font-size:12px;font-family:var(--font-mono);color:var(--muted);letter-spacing:.03em}
 .svc-cta-card{background:var(--ink);border-radius:var(--radius-md);padding:24px;color:var(--parchment)}
