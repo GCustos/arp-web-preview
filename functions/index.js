@@ -141,7 +141,7 @@ async function enviarEmailContacto(apiKey, destinatario, datos, esNuevo, crm) {
       Authorization: `Bearer ${apiKey}`,
     },
     body: JSON.stringify({
-      from: "ARP Web <onboarding@resend.dev>",
+      from: "ARP Web <web@arpprevencion.com>",
       to: [destinatario],
       subject: asunto,
       html,
