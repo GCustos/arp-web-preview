@@ -4,19 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script>
-  // Un path que empieza por "/" SIEMPRE resuelve contra la raíz del dominio,
-  // <base href> no lo cambia (así funciona la resolución de URLs, no un bug).
-  // Por eso detectamos aquí el subpath de GitHub Pages y lo anteponemos a
-  // mano a los dos <link> de CSS (bloqueantes, hace falta document.write) y,
-  // más abajo, a los <script> locales y a cualquier <a href="/..."> de la
-  // página. Al migrar a arpprevencion.com (raíz real) SITE_PREFIX es "" solo,
-  // no hay que tocar ningún archivo.
   window.SITE_PREFIX = location.hostname.endsWith('github.io') ? '/arp-web-preview' : '';
-  document.write('<link rel="stylesheet" href="' + SITE_PREFIX + '/css/tokens.css">');
-  document.write('<link rel="stylesheet" href="' + SITE_PREFIX + '/css/base.css">');
-  document.write('<link rel="icon" type="image/svg+xml" href="' + SITE_PREFIX + '/favicon.svg">');
-  document.write('<link rel="shortcut icon" href="' + SITE_PREFIX + '/favicon.ico">');
-  document.write('<link rel="apple-touch-icon" href="' + SITE_PREFIX + '/apple-touch-icon.png">');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-head.js"><\/script>');
 </script>
 <title>ARP Prevención — Inspección y certificación de instalaciones de ocio activo</title>
 <meta name="description" content="Empresa de ingeniería especializada en inspección y certificación de instalaciones de ocio activo. Parques de aventura, rocódromos, hinchables y equipamiento deportivo.">

@@ -35,6 +35,7 @@ se sube a Hostinger y este repo se archiva/borra.
 
 - `css/tokens.css` — colores, tipografía, espaciados. Cambiar aquí, se propaga a todo.
 - `css/base.css` — header, footer, botones, tarjetas de servicio. Componentes compartidos.
+- `js/site-head.js` — carga esos dos CSS más el favicon (SVG + ICO + apple-touch-icon). Cambiar el favicon o añadir un nuevo CSS global se hace UNA VEZ aquí, no en cada página.
 - Cada página añade solo sus estilos exclusivos en un `<style>` propio (ver `index.html` como ejemplo).
 
 ## Paths absolutos en GitHub Pages — SITE_PREFIX
@@ -45,7 +46,9 @@ repo en `/arp-web-preview/`, y un path que empieza por `/` **siempre**
 resuelve contra la raíz del dominio — `<base href>` no lo cambia, es cómo
 funciona la resolución de URLs, no un bug puntual. La solución: un snippet al
 principio de cada página calcula `window.SITE_PREFIX` (vacío en producción,
-`/arp-web-preview` en GitHub Pages) y lo antepone a mano donde hace falta.
+`/arp-web-preview` en GitHub Pages) y carga `js/site-head.js` con ese prefijo
+ya antepuesto — ese script es el que mete los `<link>` de CSS y favicon con
+`SITE_PREFIX` ya disponible como global.
 
 **Cada página nueva debe empezar el `<head>` así**, antes de cualquier otro
 `<link>`:
@@ -54,10 +57,12 @@ principio de cada página calcula `window.SITE_PREFIX` (vacío en producción,
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <script>
   window.SITE_PREFIX = location.hostname.endsWith('github.io') ? '/arp-web-preview' : '';
-  document.write('<link rel="stylesheet" href="' + SITE_PREFIX + '/css/tokens.css">');
-  document.write('<link rel="stylesheet" href="' + SITE_PREFIX + '/css/base.css">');
+  document.write('<script src="' + SITE_PREFIX + '/js/site-head.js"><\/script>');
 </script>
 ```
+
+Si el CSS o el favicon necesitan cambiar, se toca `js/site-head.js` una sola
+vez — ninguna página individual.
 
 Y terminar el `<body>` así:
 ```html
