@@ -38,7 +38,15 @@
   .field input[type=text],.field textarea{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-family:inherit;font-size:14px}
   .field textarea{resize:vertical}
   .field .hint{font-size:11px;color:var(--muted);margin-top:4px}
-  #form-content{min-height:220px;font-family:var(--font-mono,monospace);font-size:13px}
+  .editor-toolbar{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px}
+  .editor-toolbar button{padding:6px 10px;border:1px solid var(--border);border-radius:6px;background:#fff;font-family:inherit;font-size:12px;cursor:pointer}
+  .editor-toolbar button:hover{background:#f5f3ee}
+  #form-content{min-height:220px;font-family:inherit;font-size:14px;line-height:1.6;border:1px solid var(--border);border-radius:8px;padding:10px 12px;background:#fff}
+  #form-content:focus{outline:2px solid var(--gold-deep,#b8862f);outline-offset:-1px}
+  #form-content h2{font-size:20px;margin:14px 0 6px}
+  #form-content h3{font-size:16px;margin:12px 0 6px}
+  #form-content p{margin:0 0 10px}
+  #form-content ul,#form-content ol{margin:0 0 10px 20px}
   #form-preview{max-width:260px;border-radius:8px;margin-top:8px;display:none}
   .form-actions{display:flex;gap:10px;margin-top:24px}
   .publish-result{margin-top:16px;padding:12px 14px;border-radius:8px;font-size:13px}
@@ -94,12 +102,23 @@
       <img id="form-preview">
     </div>
     <div class="field">
-      <label>Contenido (HTML)</label>
-      <textarea id="form-content" rows="12"></textarea>
-      <div class="hint">Etiquetas simples: &lt;p&gt;, &lt;h2&gt;, &lt;h3&gt;, &lt;ul&gt;/&lt;li&gt;, &lt;strong&gt;, &lt;img&gt;</div>
+      <label>Contenido</label>
+      <div class="editor-toolbar">
+        <button type="button" onmousedown="event.preventDefault()" onclick="document.execCommand('bold')"><strong>N</strong></button>
+        <button type="button" onmousedown="event.preventDefault()" onclick="document.execCommand('italic')"><em>C</em></button>
+        <button type="button" onmousedown="event.preventDefault()" onclick="document.execCommand('formatBlock', false, '&lt;h2&gt;')">Título grande</button>
+        <button type="button" onmousedown="event.preventDefault()" onclick="document.execCommand('formatBlock', false, '&lt;h3&gt;')">Título pequeño</button>
+        <button type="button" onmousedown="event.preventDefault()" onclick="document.execCommand('formatBlock', false, '&lt;p&gt;')">Párrafo</button>
+        <button type="button" onmousedown="event.preventDefault()" onclick="document.execCommand('insertUnorderedList')">Lista</button>
+        <button type="button" onmousedown="event.preventDefault()" onclick="insertarEnlace()">Enlace</button>
+        <button type="button" onmousedown="event.preventDefault()" onclick="document.execCommand('removeFormat')">Quitar formato</button>
+      </div>
+      <div id="form-content" contenteditable="true"></div>
+      <div class="hint">Escribe aquí o pega directamente desde Google Docs — la negrita, los títulos y las listas se adaptan solos al estilo del sitio (colores y fuentes de Google se descartan).</div>
     </div>
 
     <div class="form-actions">
+      <button class="btn" onclick="previewPost()">Vista previa</button>
       <button class="btn" onclick="savePost(false)">Guardar borrador</button>
       <button class="btn btn-primary" onclick="savePost(true)">Publicar (web + redes)</button>
       <button class="btn btn-danger" id="btn-delete" style="display:none" onclick="deletePost()">Eliminar</button>
@@ -127,6 +146,103 @@
   var auth, storage, functions;
   var currentPostId = null;
   var currentImagenUrl = null;
+
+  // Limpieza del HTML pegado desde Google Docs / Word: esos editores no usan
+  // <strong>/<h2> reales, marcan negrita y tamaño de título con CSS en línea
+  // sobre <span>/<p> (y en Google Docs concretamente todo el documento viene
+  // envuelto en un <b style="font-weight:normal" id="docs-internal-guid-...">
+  // que hay que respetar como "no negrita" pese a ser un <b>). Esta función
+  // convierte esas pistas de estilo a las etiquetas limpias que usa el sitio
+  // y descarta el resto (fuentes, colores, tamaños de Google).
+  function esNegritaEstilo(el) {
+    var estilo = el.getAttribute('style') || '';
+    var m = estilo.match(/font-weight:\s*([a-z0-9]+)/i);
+    if (m) {
+      // un font-weight explícito manda incluso sobre una etiqueta <b> —
+      // así se respeta el <b style="font-weight:normal" id="docs-internal-guid-...">
+      // con el que Google Docs envuelve todo el documento al copiar.
+      var val = m[1].toLowerCase();
+      return val === 'bold' || parseInt(val, 10) >= 600;
+    }
+    return el.tagName === 'B' || el.tagName === 'STRONG';
+  }
+  function esCursivaEstilo(el) {
+    var estilo = el.getAttribute('style') || '';
+    if (el.tagName === 'I' || el.tagName === 'EM') return true;
+    return /font-style:\s*italic/i.test(estilo);
+  }
+  function tamanoPt(el) {
+    var estilo = el.getAttribute('style') || '';
+    var m = estilo.match(/font-size:\s*([\d.]+)pt/i);
+    return m ? parseFloat(m[1]) : null;
+  }
+
+  function limpiarNodo(padre) {
+    Array.prototype.slice.call(padre.childNodes).forEach(function(hijo) {
+      if (hijo.nodeType === 3) return; // texto: se queda tal cual
+      if (hijo.nodeType !== 1) { padre.removeChild(hijo); return; }
+
+      limpiarNodo(hijo); // primero los hijos (de dentro hacia fuera)
+
+      var negrita = esNegritaEstilo(hijo);
+      var cursiva = esCursivaEstilo(hijo);
+      var pt = tamanoPt(hijo);
+      var tag = hijo.tagName;
+
+      var final = null;
+      if (tag === 'A') final = 'A';
+      else if (tag === 'IMG') final = 'IMG';
+      else if (tag === 'LI') final = 'LI';
+      else if (tag === 'UL') final = 'UL';
+      else if (tag === 'OL') final = 'OL';
+      else if (tag === 'BR') final = 'BR';
+      else if (pt !== null && pt >= 18) final = 'H2';
+      else if (pt !== null && pt >= 14) final = 'H3';
+      else if (tag === 'P' || tag === 'DIV') final = 'P';
+
+      if (!final) {
+        // span, font, b/i sueltos, etc: se desenvuelve conservando negrita/cursiva
+        var interior = hijo.innerHTML;
+        if (negrita) interior = '<strong>' + interior + '</strong>';
+        if (cursiva) interior = '<em>' + interior + '</em>';
+        var tmp = document.createElement('div');
+        tmp.innerHTML = interior;
+        while (tmp.firstChild) padre.insertBefore(tmp.firstChild, hijo);
+        padre.removeChild(hijo);
+        return;
+      }
+
+      var limpio = document.createElement(final);
+      if (final === 'A') {
+        limpio.setAttribute('href', hijo.getAttribute('href') || '#');
+        limpio.setAttribute('target', '_blank');
+        limpio.setAttribute('rel', 'noopener');
+        limpio.innerHTML = hijo.innerHTML;
+      } else if (final === 'IMG') {
+        limpio.setAttribute('src', hijo.getAttribute('src') || '');
+        limpio.setAttribute('alt', hijo.getAttribute('alt') || '');
+      } else if (final !== 'BR') {
+        var interiorB = hijo.innerHTML;
+        if (negrita && final !== 'H2' && final !== 'H3') interiorB = '<strong>' + interiorB + '</strong>';
+        if (cursiva) interiorB = '<em>' + interiorB + '</em>';
+        limpio.innerHTML = interiorB;
+      }
+      padre.replaceChild(limpio, hijo);
+    });
+  }
+
+  function limpiarHtmlPegado(sucio) {
+    var contenedor = document.createElement('div');
+    contenedor.innerHTML = sucio;
+    limpiarNodo(contenedor);
+    return contenedor.innerHTML;
+  }
+
+  window.insertarEnlace = function() {
+    var url = prompt('URL del enlace:');
+    if (!url) return;
+    document.execCommand('createLink', false, url);
+  };
 
   function show(id) {
     document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('vis'); });
@@ -212,7 +328,7 @@
     document.getElementById('form-titulo').value = '';
     document.getElementById('form-resumen').value = '';
     document.getElementById('form-tag').value = '';
-    document.getElementById('form-content').value = '';
+    document.getElementById('form-content').innerHTML = '';
     document.getElementById('form-imagen-file').value = '';
     document.getElementById('form-preview').style.display = 'none';
     document.getElementById('publish-result').innerHTML = '';
@@ -230,7 +346,7 @@
       document.getElementById('form-titulo').value = p.titulo || '';
       document.getElementById('form-resumen').value = p.resumen || '';
       document.getElementById('form-tag').value = p.tag || '';
-      document.getElementById('form-content').value = p.contenido || '';
+      document.getElementById('form-content').innerHTML = p.contenido || '';
       if (p.imagen) {
         currentImagenUrl = p.imagen;
         var img = document.getElementById('form-preview');
@@ -262,7 +378,7 @@
       titulo: document.getElementById('form-titulo').value.trim(),
       resumen: document.getElementById('form-resumen').value.trim(),
       tag: document.getElementById('form-tag').value.trim(),
-      contenido: document.getElementById('form-content').value,
+      contenido: limpiarHtmlPegado(document.getElementById('form-content').innerHTML),
       publicado: publicar
     };
 
@@ -275,15 +391,16 @@
       return docRef.set(data, { merge: true }).then(function() {
         currentPostId = postId;
         if (!publicar) { closeForm(); return; }
-        return publicarEnRedes(data.titulo, data.resumen, imagenUrl);
+        return publicarEnRedes(data.titulo, data.resumen, imagenUrl, postId);
       });
     }).catch(function(e) {
       alert('Error guardando: ' + e.message);
     });
   };
 
-  function publicarEnRedes(titulo, resumen, imagenUrl) {
-    var texto = titulo + (resumen ? '\n\n' + resumen : '');
+  function publicarEnRedes(titulo, resumen, imagenUrl, postId) {
+    var url = window.location.origin + SITE_PREFIX + '/blog/post/?id=' + postId;
+    var texto = titulo + (resumen ? '\n\n' + resumen : '') + '\n\n' + url;
     var call = functions.httpsCallable('publishToSocial');
     var box = document.getElementById('publish-result');
     box.className = 'publish-result';
@@ -303,6 +420,91 @@
     });
   }
 
+  function escPreview(s) {
+    return (s || '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+  }
+
+  window.previewPost = function() {
+    var win = window.open('', '_blank');
+    if (!win) { alert('El navegador ha bloqueado la vista previa. Permite las ventanas emergentes para este sitio.'); return; }
+
+    var titulo = document.getElementById('form-titulo').value.trim() || '(sin título)';
+    var resumen = document.getElementById('form-resumen').value.trim();
+    var tag = document.getElementById('form-tag').value.trim();
+    var contenido = limpiarHtmlPegado(document.getElementById('form-content').innerHTML);
+    var file = document.getElementById('form-imagen-file').files[0];
+    var imagenSrc = file ? URL.createObjectURL(file) : (currentImagenUrl || '');
+    var fechaTexto = new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
+    var origin = window.location.origin + SITE_PREFIX;
+
+    var html = [
+      '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">',
+      '<meta name="viewport" content="width=device-width, initial-scale=1.0">',
+      '<link rel="stylesheet" href="' + origin + '/css/tokens.css">',
+      '<link rel="stylesheet" href="' + origin + '/css/base.css">',
+      '<title>Vista previa — ' + escPreview(titulo) + '</title>',
+      '<link rel="preconnect" href="https://fonts.googleapis.com">',
+      '<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">',
+      '<style>',
+      '.preview-banner{position:sticky;top:0;z-index:10;background:#1a1a1a;color:#fff;text-align:center;font-family:monospace;font-size:12px;letter-spacing:.06em;padding:8px;text-transform:uppercase}',
+      '.post-hero{padding:0;border-bottom:1px solid var(--border)}',
+      '.post-hero-img{width:100%;max-height:420px;object-fit:cover;display:block}',
+      '.post-hero-content{padding:36px 0 32px}',
+      '.post-breadcrumb{font-family:var(--font-mono);font-size:11px;color:var(--muted);display:flex;align-items:center;gap:8px;margin-bottom:20px}',
+      '.post-meta{display:flex;align-items:center;gap:14px;margin-bottom:16px}',
+      '.post-date{font-family:var(--font-mono);font-size:11px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}',
+      '.post-tag{font-family:var(--font-mono);font-size:10.5px;color:var(--rope);background:#f5ede0;border-radius:20px;padding:2px 10px;letter-spacing:.04em}',
+      '.post-title{font-size:42px;line-height:1.1;max-width:760px;margin-bottom:14px}',
+      '.post-resumen{font-size:18px;color:#4a463f;max-width:680px;line-height:1.6}',
+      '.post-body{padding:52px 0 88px}',
+      '.post-layout{display:grid;grid-template-columns:1fr 280px;gap:64px;align-items:start}',
+      '.post-content{font-size:16px;line-height:1.8;color:#2a2820;max-width:680px}',
+      '.post-content h2{font-size:24px;margin:36px 0 14px}',
+      '.post-content h3{font-size:20px;margin:28px 0 10px}',
+      '.post-content p{margin-bottom:18px}',
+      '.post-content ul,.post-content ol{margin:0 0 18px 22px}',
+      '.post-content li{margin-bottom:6px}',
+      '.post-content strong{color:var(--ink)}',
+      '.post-content img{border-radius:8px;margin:24px 0;max-width:100%}',
+      '.post-sidebar{position:sticky;top:32px;display:flex;flex-direction:column;gap:16px}',
+      '.post-sidebar-card{background:#fff;border:1px solid var(--border);border-radius:10px;padding:20px 22px}',
+      '.post-sidebar-card h4{font-size:13px;font-weight:600;margin-bottom:10px;text-transform:uppercase;letter-spacing:.04em;font-family:var(--font-mono);color:var(--muted)}',
+      '.post-sidebar-card p{font-size:13.5px;color:var(--muted);line-height:1.6}',
+      '.post-back{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--muted);font-family:var(--font-mono);text-decoration:none;margin-bottom:8px}',
+      '@media(max-width:900px){.post-layout{grid-template-columns:1fr}.post-sidebar{position:static}.post-title{font-size:30px}}',
+      '</style></head><body>',
+      '<div class="preview-banner">Vista previa — todavía no publicado</div>',
+      '<div id="site-header" data-active="blog"></div>',
+      '<div class="post-hero">',
+      (imagenSrc ? '<img class="post-hero-img" src="' + imagenSrc + '" alt="">' : ''),
+      '<div class="wrap post-hero-content">',
+      '<nav class="post-breadcrumb"><a href="' + origin + '/blog/">Casos</a><span>&rsaquo;</span><span>' + escPreview(titulo) + '</span></nav>',
+      '<div class="post-meta"><span class="post-date">' + fechaTexto + '</span>',
+      (tag ? '<span class="post-tag">' + escPreview(tag) + '</span>' : ''),
+      '</div>',
+      '<h1 class="post-title">' + escPreview(titulo) + '</h1>',
+      '<p class="post-resumen">' + escPreview(resumen) + '</p>',
+      '</div></div>',
+      '<div class="post-body"><div class="wrap"><div class="post-layout">',
+      '<div class="post-content">' + contenido + '</div>',
+      '<aside class="post-sidebar">',
+      '<a href="' + origin + '/blog/" class="post-back">← Todos los casos</a>',
+      '<div class="post-sidebar-card"><h4>Publicado por</h4><p>ARP Prevención — Entidad de Inspección · ISO 17020</p></div>',
+      '<div class="post-sidebar-card"><h4>¿Tienes una instalación similar?</h4><p>Cuéntanos el tipo de instalación y te enviamos presupuesto sin compromiso.</p></div>',
+      '<a href="' + origin + '/contacto/" class="btn-primary" style="text-align:center">Solicitar inspección →</a>',
+      '</aside></div></div></div>',
+      '<div id="site-footer"></div>',
+      '<script src="' + origin + '/js/site-config.js"><\/script>',
+      '<script src="' + origin + '/js/site-header.js"><\/script>',
+      '<script src="' + origin + '/js/site-footer.js"><\/script>',
+      '</body></html>'
+    ].join('');
+
+    win.document.open();
+    win.document.write(html);
+    win.document.close();
+  };
+
   window.deletePost = function() {
     if (!currentPostId) return;
     if (!confirm('¿Eliminar este caso definitivamente?')) return;
@@ -315,6 +517,17 @@
     var img = document.getElementById('form-preview');
     img.src = URL.createObjectURL(file);
     img.style.display = 'block';
+  });
+
+  document.getElementById('form-content').addEventListener('paste', function(e) {
+    e.preventDefault();
+    var html = e.clipboardData && e.clipboardData.getData('text/html');
+    if (html) {
+      document.execCommand('insertHTML', false, limpiarHtmlPegado(html));
+    } else {
+      var texto = (e.clipboardData && e.clipboardData.getData('text/plain')) || '';
+      document.execCommand('insertText', false, texto);
+    }
   });
 </script>
 </body>
