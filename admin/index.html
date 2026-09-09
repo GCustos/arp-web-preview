@@ -143,6 +143,11 @@
     'natcrualb.arp@gmail.com'
   ];
 
+  // Dominio real fijo: el enlace publicado en redes y los assets de la vista
+  // previa deben apuntar siempre a la web pública, aunque el admin se abra
+  // en local o en la demo de GitHub Pages para probar.
+  var SITE_URL = 'https://www.arpprevencion.com';
+
   var auth, storage, functions;
   var currentPostId = null;
   var currentImagenUrl = null;
@@ -399,7 +404,7 @@
   };
 
   function publicarEnRedes(titulo, resumen, imagenUrl, postId) {
-    var url = window.location.origin + SITE_PREFIX + '/blog/post/?id=' + postId;
+    var url = SITE_URL + '/blog/post/?id=' + postId;
     var texto = titulo + (resumen ? '\n\n' + resumen : '') + '\n\n' + url;
     var call = functions.httpsCallable('publishToSocial');
     var box = document.getElementById('publish-result');
@@ -435,7 +440,7 @@
     var file = document.getElementById('form-imagen-file').files[0];
     var imagenSrc = file ? URL.createObjectURL(file) : (currentImagenUrl || '');
     var fechaTexto = new Date().toLocaleDateString('es-ES', { day: 'numeric', month: 'long', year: 'numeric' });
-    var origin = window.location.origin + SITE_PREFIX;
+    var origin = SITE_URL;
 
     var html = [
       '<!DOCTYPE html><html lang="es"><head><meta charset="UTF-8">',
