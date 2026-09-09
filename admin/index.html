@@ -120,7 +120,7 @@
     <div class="form-actions">
       <button class="btn" onclick="previewPost()">Vista previa</button>
       <button class="btn" onclick="savePost(false)">Guardar borrador</button>
-      <button class="btn btn-primary" onclick="savePost(true)">Publicar (web + redes)</button>
+      <button class="btn btn-primary" id="btn-publicar" onclick="savePost(true)">Publicar (web + redes)</button>
       <button class="btn btn-danger" id="btn-delete" style="display:none" onclick="deletePost()">Eliminar</button>
     </div>
     <div id="publish-result"></div>
@@ -151,6 +151,7 @@
   var auth, storage, functions;
   var currentPostId = null;
   var currentImagenUrl = null;
+  var postYaPublicado = false;
 
   // Limpieza del HTML pegado desde Google Docs / Word: esos editores no usan
   // <strong>/<h2> reales, marcan negrita y tamaño de título con CSS en línea
@@ -330,6 +331,7 @@
   window.openForm = function(postId) {
     currentPostId = postId;
     currentImagenUrl = null;
+    postYaPublicado = false;
     document.getElementById('form-titulo').value = '';
     document.getElementById('form-resumen').value = '';
     document.getElementById('form-tag').value = '';
@@ -338,6 +340,7 @@
     document.getElementById('form-preview').style.display = 'none';
     document.getElementById('publish-result').innerHTML = '';
     document.getElementById('btn-delete').style.display = postId ? 'inline-block' : 'none';
+    document.getElementById('btn-publicar').textContent = 'Publicar (web + redes)';
 
     if (!postId) {
       document.getElementById('form-title-h1').textContent = 'Nuevo caso';
@@ -358,6 +361,8 @@
         img.src = p.imagen;
         img.style.display = 'block';
       }
+      postYaPublicado = !!p.publicado;
+      if (postYaPublicado) document.getElementById('btn-publicar').textContent = 'Guardar cambios';
       show('screen-form');
     });
   };
@@ -395,7 +400,10 @@
 
       return docRef.set(data, { merge: true }).then(function() {
         currentPostId = postId;
-        if (!publicar) { closeForm(); return; }
+        var esPrimeraPublicacion = publicar && !postYaPublicado;
+        postYaPublicado = data.publicado;
+        document.getElementById('btn-publicar').textContent = postYaPublicado ? 'Guardar cambios' : 'Publicar (web + redes)';
+        if (!esPrimeraPublicacion) { closeForm(); return; }
         return publicarEnRedes(data.titulo, data.resumen, imagenUrl, postId);
       });
     }).catch(function(e) {
