@@ -107,7 +107,11 @@ window.siteConfigReady = loadSiteConfig();
     var img = document.createElement('img');
     img.className = 'svc-page-hero-img';
     img.src = src;
-    img.alt = '';
+    // aria-hidden oculta la imagen de lectores de pantalla (el <h1> ya da esa
+    // info, evita anuncio redundante) — pero el alt sigue siendo visible para
+    // rastreadores/Google Images, así que lo rellenamos con el título de la página.
+    var h1 = document.querySelector('.svc-page-hero h1');
+    img.alt = h1 ? h1.textContent.trim() + ' — ARP Prevención' : '';
     img.setAttribute('aria-hidden','true');
     hero.insertBefore(overlay, hero.firstChild);
     hero.insertBefore(img, hero.firstChild);

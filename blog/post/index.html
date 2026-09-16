@@ -134,6 +134,10 @@
     document.getElementById('post-wrap').style.display = 'block';
 
     document.title = (data.titulo || 'Caso') + ' — ARP Prevención';
+    if (data.resumen) {
+      var metaDesc = document.querySelector('meta[name="description"]');
+      if (metaDesc) metaDesc.setAttribute('content', data.resumen.slice(0, 160));
+    }
     document.getElementById('post-title').textContent = data.titulo || '';
     document.getElementById('post-breadcrumb-title').textContent = data.titulo || '';
     document.getElementById('post-resumen').textContent = data.resumen || '';
